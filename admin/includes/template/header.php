@@ -95,6 +95,7 @@
                         <a class="collapse-item" href="tables.php?name=users">Users</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Tables:</h6>
+                        <a class="collapse-item" href="tables.php?name=images">image</a>
                         <a class="collapse-item" href="tables.php?name=category">Category</a>
                         <a class="collapse-item" href="tables.php?name=brand">Brand</a>
                         <a class="collapse-item" href="tables.php?name=permission">Permission</a>

@@ -1,7 +1,9 @@
 <?php 
   
-  function handel_img($arr,$action,$old_img_name) {
-    if(isset($arr["images"]) && empty($old_img_name)) {
+  function handel_img($arr,$action,$old_img_name=[]) {
+    if($_FILES["images"]["error"][0] == 0) {
+
+
       $names = $arr["images"]["name"];
       $sizes = $arr["images"]["size"];
       $types = [];
@@ -29,7 +31,7 @@
         array_push($files, time().rand(0,1000).$ext);
       }
   
-      return implode(", " ,$files);
+      return $files;
     } else {
       if($action === "add") return "";
       elseif ($action === "edit") {

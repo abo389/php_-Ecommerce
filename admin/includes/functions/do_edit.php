@@ -10,12 +10,18 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   array_shift($_POST);
   $_SESSION["errors"] = [];
 
-  $select_img = "SELECT image FROM `$table_name` WHERE id='$id'";
-  $old_img_name = $conn->query($select_img)->fetch_column();
-
   // handel image
-  $image = handel_img($_FILES,"edit",$old_img_name);
-  $files = explode(", ", $image);
+  if($table_name === "products") {
+    $select_img = "SELECT name FROM `images` WHERE pro_id='$id'";
+    $old_img_name = $conn->query($select_img)->fetch_all();
+    $old_images = [];
+    for ($i=0; $i < count($old_img_name); $i++) { 
+      array_push($old_images,$old_img_name[$i][0]);
+    }
+    $image = handel_img($_FILES,"edit",$old_images);
+  }  
+
+
 
   // handel errors
   handel_errors($_POST);
@@ -26,9 +32,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
   }
 
-  if($table_name === "products") {
-    $_POST["image"] = $image;
-  }
+
   $mix = [] ;
   $colums = array_keys($_POST);
   $values = array_values($_POST);
@@ -41,19 +45,22 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   $sql = "UPDATE `$table_name` SET $mix WHERE id='$id'";
   $conn->query($sql);
 
-  if(isset($_FILES["images"])){//if user select new imgs
-    // upload new image
+
+
+
+  if($table_name === "products" && $_FILES["images"]["error"][0] == 0){//if user select new imgs
+    // upload new image 
     $tmps = $_FILES["images"]["tmp_name"];
     for ($i=0; $i < count($tmps); $i++) { 
-      move_uploaded_file($tmps[$i], "../../images/".$files[$i]);
+      move_uploaded_file($tmps[$i], "../../images/".$image[$i]);
+      $insert = "INSERT INTO images (name,pro_id) VALUES ('$image[$i]','$id')";
+      $conn->query($insert);
     }
-    // delete old img
-    if(count(explode(", ", $old_img_name)) > 1) {
-      $imgs = explode(", ", $old_img_name);
-      foreach($imgs as $img) {
+      foreach($old_images as $img) {
         unlink("../../images/$img");
+        $sql = "DELETE FROM `images` WHERE name='$img'";
+        $conn->query($sql);
       }
-    } else {unlink("../../images/$img_name");}
   } 
 
 

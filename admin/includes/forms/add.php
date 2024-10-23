@@ -1,7 +1,7 @@
 <?php
 $url = $_SERVER["REQUEST_URI"];
 $_SESSION["last_url"] = $url;
-include("includes/template/inputs.php")
+include("includes/template/inputs.php");
 ?>
 <div class="container">
   <form class="row g-3" action="includes/functions/do_add.php" method="post" enctype="multipart/form-data">

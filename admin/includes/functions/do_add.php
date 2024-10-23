@@ -9,8 +9,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   $_SESSION["errors"] = [];
 
   // handel image
-  $image = handel_img($_FILES,"add","");
-  $files = explode(", ", $image);
+  $image = handel_img($_FILES,"add");
 
   // handel errors
   handel_errors($_POST);
@@ -22,23 +21,31 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   }
 
   //  var for insert string
-  if($table_name === "products") $_POST["image"] = $image;
   $colums = implode( ",",array_keys($_POST));
   $values = implode( "' , '",array_values($_POST));
 
   // send data
   $sql = "INSERT INTO `$table_name` ($colums) VALUES ('$values')";
   $conn->query($sql);
+  $pro_id = $conn->insert_id;
+
+
+
+  foreach($image as $img){
+    $insert = "INSERT INTO images (name,pro_id) VALUES ('$img','$pro_id')";
+    $conn->query($insert);
+  };
   
   // upload images
   if(isset($_FILES["images"])){
     $tmps = $_FILES["images"]["tmp_name"];
     for ($i=0; $i < count($tmps); $i++) { 
-      move_uploaded_file($tmps[$i], "../../images/".$files[$i]);
+      move_uploaded_file($tmps[$i], "../../images/".$image[$i]);
     }
   };
 
   // redirect
   header("location: ../../tables.php?name=$table_name");
 }
+
 ?>

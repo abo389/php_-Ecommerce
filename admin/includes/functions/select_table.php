@@ -3,7 +3,7 @@
 function select_table($table_name) {
 
   if($table_name === "products") {
-    $select = "SELECT p.id, p.name, p.price, c.name as cat, b.name as brand, `count`, `description`, `views`, `image`
+    $select = "SELECT p.id, p.name, p.price, c.name as cat, b.name as brand, `count`, `description`, `views`
             FROM `products` p,`category` c,`brand` b 
             WHERE p.cat = c.id AND p.brand = b.id
             ORDER BY p.id;";
@@ -15,6 +15,7 @@ function select_table($table_name) {
   }
   elseif ($table_name === "category" || 
           $table_name === "brand" ||
+          $table_name === "images" ||
           $table_name === "permission" ||
           $table_name === "gender") 
   {

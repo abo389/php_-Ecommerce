@@ -4,7 +4,13 @@
       $table_name = $_GET["name"];
       $select = select_table($table_name);
 
+      // echo "<pre>";
+      // print_r($select);
+      // print_r($conn->query($select)->fetch_all());
+      // echo "</pre>";
+      
       $colum_names = array_keys($conn->query($select)->fetch_all(MYSQLI_ASSOC)[0]);
+      if($table_name === "products" || $table_name === "images") array_push($colum_names,"image");
       $items_nums = count($conn->query($select)->fetch_all());
       $all = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
 
@@ -40,15 +46,21 @@
                             echo "<td style='max-width: 300px;'>".substr($all[$i][$n],0,100)."</td>";
                           }
                           elseif ($n === "image") {
-                            $imgs = explode(", " ,$all[$i][$n]);
-                            $img_num = count($imgs);
-                            $m = ($img_num > 1) ? 'and '.($img_num-1).' more' : ''; 
-                            echo "<td>
-                            <img style='height: 100px;width: 100%;margin: 5px auto;object-fit: contain;'
-                            src='images/".$imgs[0]."' 
-                            alt='$n'>
-                            <a href='#'>$m</a>
-                            </td>";
+                            if($table_name === "products") {
+                              $pro_id = $all[$i]["id"];
+                              $select = "SELECT name FROM `images` WHERE pro_id='$pro_id'";
+                              $data = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
+                              echo "<td>";
+                              foreach($data as $img) {
+                                echo "<img style='width: 50px;' src='images/$img[name]' />";
+                              }
+                              echo "</td>";
+                            }
+                            if($table_name === "images") {
+                              $name = $all[$i]["name"];
+                              echo "<td><img style='height: 50px;' src='images/$name'/></td>";
+                            }
+                            
                           }
                           else {
                             echo "<td>".$all[$i][$n]."</td>";

@@ -8,7 +8,7 @@
       if(!empty($id)) {
         $select = "SELECT * FROM `$table_name` WHERE id='$id'";
         $data = $conn->query($select)->fetch_assoc();
-      }
+      } 
       if(str_ends_with($table_name,"s")) $table_name = substr($table_name,0,(strlen($table_name)-1));
       $output = [];
       $type = "text";
@@ -41,7 +41,7 @@
                 $s3 = [];
                 foreach($all as $va) {
                   if($v === "category") $v = "cat";
-                  $me = ($va["id"] === $data[$v]) ? 'selected' : "";
+                  $me = (isset($data) && $va["id"] === $data[$v] ) ? 'selected' : "";
                   array_push($s3, "<option $me value='$va[id]'>$va[name]</option>") ;
                 }
                 $s3 = implode("\n\r",$s3);
@@ -50,10 +50,11 @@
           continue;
         }
         else $type = "text";
+        $me = (isset($data)) ? "value='$data[$v]'":"";
         $s1 = <<<HTML
         <div class="col-md-6 mb-3">
           <label class="form-label">$table_name $v</label>
-          <input name="$v" value='$data[$v]' type="$type" class="form-control" >
+          <input name="$v" $me type="$type" class="form-control" >
         HTML;
         $s2 = error_msg($v)."</div>";
         array_push($output,$s1.$s2);
