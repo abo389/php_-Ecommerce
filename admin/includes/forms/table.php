@@ -1,18 +1,25 @@
 <div class="container-fluid">
     <?php
       include("./includes/functions/select_table.php");
+      include("./includes/functions/permissions.php");
       $table_name = $_GET["name"];
       $select = select_table($table_name);
 
-      // echo "<pre>";
-      // print_r($select);
-      // print_r($conn->query($select)->fetch_all());
-      // echo "</pre>";
+      
       
       $colum_names = array_keys($conn->query($select)->fetch_all(MYSQLI_ASSOC)[0]);
       if($table_name === "products" || $table_name === "images") array_push($colum_names,"image");
       $items_nums = count($conn->query($select)->fetch_all());
       $all = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
+      if($table_name === "users") {
+        $current_user = current_user_row();
+        array_unshift($all, $current_user);
+        $items_nums++;
+      };
+
+      // echo "<pre>";
+      // print_r($all);
+      // echo "</pre>";
 
       $_SESSION["colum_names"] = $colum_names;
     ?>
@@ -65,15 +72,12 @@
                           else {
                             echo "<td>".$all[$i][$n]."</td>";
                           }
-                        } ?>
-                          <td>
-                            <a href="<?="?name=".$table_name."&action=edit"."&id=".$all[$i]["id"]?>">
-                              <button class="btn btn-secondary">Edit</button>
-                            </a>
-                            <a href="?action=delete&name=<?=$table_name."&id=".$all[$i]["id"]?>">
-                              <button class="btn btn-danger">Delete</button>
-                            </a>
-                          </td>
+                        } 
+                        echo "<td>";
+                        echo permissions($all[$i]["id"]);
+                        echo "</td>";
+                        ?>
+
                           </tr>
                       <?php } ?>
                     </tbody>

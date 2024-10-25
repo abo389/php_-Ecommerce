@@ -10,12 +10,14 @@
     $user_data = $conn->query($check)->fetch_assoc();
     $is_user = $conn->query($check)->num_rows === 1;
     if($is_user) {
-      if($user_data["permission"] == 1) {
-        $_SESSION["user"] = implode(",",$user_data);
+      if($user_data["permission"] == 1 ||
+      $user_data["permission"] == 2 ||
+      $user_data["permission"] == 3) {
+        $_SESSION["user"] = $user_data;
         header("location: index.php");
       } 
-      elseif ($user_data["permission"] == 2 || $user_data["permission"] == 3) {
-        $m = "<div class='alert alert-danger'>you dont have permission anymore</div>";
+      elseif ($user_data["permission"] == 4) {
+        $m = "<div class='alert alert-danger'>you dont have permission</div>";
       } 
     }
     else {
@@ -69,12 +71,12 @@
                                     </div>
                                     <form class="user" method="post">
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user"
+                                            <input required type="email" name="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user"
+                                            <input required type="password" name="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -88,13 +90,6 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        <!-- <hr>
-                                        <a href="#" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="#" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a> -->
                                     </form>
                                     <hr>
                                     <div class="text-center">

@@ -46,6 +46,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
   // redirect
   header("location: ../../tables.php?name=$table_name");
-}
+} else {header("location: ../../tables.php?name=$table_name");}
 
 ?>

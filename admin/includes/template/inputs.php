@@ -37,7 +37,12 @@
                 $m = error_msg($v);
                 if($v === "cat") $v = "category";
                 $s2 = "<option value=''>select $v</option>";
-                $all = $conn->query("SELECT * FROM ".$v)->fetch_all(MYSQLI_ASSOC);
+                if($table_name === "user") {
+                  $permission = $_SESSION["user"]["permission"];
+                  $all = $conn->query("SELECT * FROM `$v` WHERE id >= '$permission'")->fetch_all(MYSQLI_ASSOC);
+                } else {
+                  $all = $conn->query("SELECT * FROM ".$v)->fetch_all(MYSQLI_ASSOC);
+                }
                 $s3 = [];
                 foreach($all as $va) {
                   if($v === "category") $v = "cat";
