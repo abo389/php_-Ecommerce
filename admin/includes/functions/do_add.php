@@ -24,6 +24,11 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   $colums = implode( ",",array_keys($_POST));
   $values = implode( "' , '",array_values($_POST));
 
+  // echo "<pre>";
+  // print_r($colums);
+  // echo "<br>";
+  // print_r($values);
+  // echo "</pre>";
   // send data
   $sql = "INSERT INTO `$table_name` ($colums) VALUES ('$values')";
   $conn->query($sql);
