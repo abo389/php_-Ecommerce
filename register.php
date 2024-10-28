@@ -5,29 +5,19 @@
   if($_SERVER["REQUEST_METHOD"] === "POST") {
     $_POST["permission"] = 4;
     $errors = errors($_POST);
-
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
-    // exit();
-    $full_name = $_POST["fname"]." ".$_POST["lname"];
-    $email = $_POST["email"];
-    $pass = $_POST["password-1"] === $_POST["password-2"];
-    if(!$pass) {
-      $err_msg = "<div class='alert alert-danger'>write the same password</div>";
-    };
-    $password = $_POST["password-1"];
-    if(!isset($err_msg)) {
-      $insert = "INSERT INTO users(name,email,password,permission)
-      VALUES('$full_name','$email','$password',4)";
-      if($conn->query($insert)) {
-        $lastUserId = $conn->insert_id;
-        $d = $conn->query("SELECT * FROM users WHERE id='$lastUserId'");
-        $_SESSION["user_data"] = $d;
-        header("location: index.php");
-      };
+    if(empty($errors)) {
+      $full_name = $_POST["fname"]." ".$_POST["lname"];
+      $email = $_POST["email"];
+      $password = $_POST["password-1"];
+      $gender = $_POST["gender"];
+      $permission = $_POST["permission"];
+      $insert = "INSERT INTO users(name,email,password,gender,permission)
+      VALUES('$full_name','$email','$password','$gender','$permission')";
+      $conn->query($insert);
+      $_SESSION["user_data"]["name"] = $full_name;
+      header("location: index.php");
     }
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +27,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Register</title>
+    <title>Register</title>
+    <link rel="shortcut icon" href="img/favicon.png">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -63,24 +54,29 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input  type="text" class="form-control form-control-user" name="fname"
                                             placeholder="First Name">
+                                        <?= isset($errors["fname"])?"<div class='alert alert-danger'>$errors[fname]</div>":"" ?>
                                     </div>
                                     <div class="col-sm-6">
                                         <input  type="text" class="form-control form-control-user" name="lname"
                                             placeholder="Last Name">
+                                            <?= isset($errors["lname"])?"<div class='alert alert-danger'>$errors[lname]</div>":"" ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input  type="email" class="form-control form-control-user" name="email"
                                         placeholder="Email Address">
+                                        <?= isset($errors["email"])?"<div class='alert alert-danger'>$errors[email]</div>":"" ?>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input  type="password" class="form-control form-control-user" name="password-1"
                                             id="exampleInputPassword" placeholder="Password">
+                                            <?= isset($errors["password-2"])?"<div class='alert alert-danger'>".$errors['password-2']."</div>":"" ?>
                                     </div>
                                     <div class="col-sm-6">
                                         <input  type="password" class="form-control form-control-user" name="password-2"
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            <?= isset($errors["password-2"])?"<div class='alert alert-danger'>".$errors['password-2']."</div>":"" ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -94,7 +90,6 @@
                                     <label class="form-check-label" >Female</label>
                                   </div>
                                 </div>
-                                <?= isset($err_msg)?$err_msg:"" ?>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
