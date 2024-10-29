@@ -7,13 +7,14 @@ if(isset($_GET["offset"])) {
   $n = $_GET["offset"]-1;
   $offsit = $limit*$n;
 }
-if(isset($_GET["catId"])) {
+if(isset($_GET["catId"]) && !empty($_GET["catId"])) {
   $catId = $_GET["catId"];
+  $pro_nums = count($conn->query("SELECT * FROM products WHERE cat='$catId'")->fetch_all());
   $select = "SELECT * FROM products where cat='$catId' limit ".$limit." OFFSET ".$offsit;
 } else {
   $select = "SELECT * FROM products limit ".$limit." OFFSET ".$offsit;
+  $pro_nums = count($conn->query("SELECT * FROM products")->fetch_all());
 }
-$pro_nums = count($conn->query("SELECT * FROM products")->fetch_all());
 // echo $pro_nums;
 $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -147,7 +148,7 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
                           </ul>
                         </div>
                       </div>
-                      <h6> <a class="reset-anchor" href="detail.html"><?=$pro["name"]?></a></h6>
+                      <h6> <a class="reset-anchor" href="detail.php"><?=$pro["name"]?></a></h6>
                       <p class="small text-muted">$<?=$pro["price"]?></p>
                     </div>
                   </div>
@@ -157,9 +158,9 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
               <nav style="justify-self: center;" aria-label="Page navigation example">
                 <ul class="pagination justify-content-center justify-content-lg-end">
                   <li><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                  <li class="page-item"><a class="page-link" href="shop.php?offset=1">1</a></li>
-                  <li class="page-item"><a class="page-link" href="shop.php?offset=2">2</a></li>
-                  <li class="page-item"><a class="page-link" href="shop.php?offset=3">3</a></li>
+                  <li class="page-item"><a class="page-link" href="shop.php?offset=1&catId=<?=$catId??""?>">1</a></li>
+                  <li class="page-item"><a class="page-link" href="shop.php?offset=2&catId=<?=$catId??""?>">2</a></li>
+                  <li class="page-item"><a class="page-link" href="shop.php?offset=3&catId=<?=$catId??""?>">3</a></li>
                   <li><a class="page-link" href="shop.php" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                 </ul>
               </nav>

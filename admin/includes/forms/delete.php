@@ -1,5 +1,4 @@
 <?php
-
 $id = $_GET["id"];
 $table_name = $_GET["name"];
 

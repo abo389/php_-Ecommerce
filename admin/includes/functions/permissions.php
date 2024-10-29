@@ -24,7 +24,7 @@
     HTML;
     $delete_button = <<<HTML
         <a style="display: inline-block;" href="?name=$table_name&action=delete&id=$id">
-          <button class="btn btn-danger">Delete</button>
+          <button id="deletebtn" class="btn btn-danger">Delete</button>
         </a>
     HTML;
 

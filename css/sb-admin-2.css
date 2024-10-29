@@ -10860,17 +10860,6 @@ a:focus {
   }
 }
 
-.bg-login-image {
-  background: url("../img/Mobile\ login-rafiki.svg");
-  background-size: cover;
-  margin: 10px;
-}
-
-.bg-register-image {
-  background: url("../img/Developer\ activity-bro.svg");
-  background-position: center;
-  background-size: cover;
-}
 
 .bg-password-image {
   background: url("../img/Forgot\ password-amico.svg");

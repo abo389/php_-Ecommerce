@@ -5,7 +5,7 @@ if(!isset($_GET["name"])) {
 };
 
 include("./includes/template/header.php");
-// include("../functions/connect.php");
+include("./includes/functions/connect.php");
 
 $action = @$_GET["action"];
 if(!isset($_GET["action"])) include("./includes/forms/table.php");
