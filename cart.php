@@ -1,4 +1,23 @@
-<?php include("./includes/template/header.php"); ?>
+<?php 
+include("./includes/template/header.php");
+$user_id = @$_SESSION["user_data"]["id"];
+$select = "SELECT * FROM cart WHERE user_id='$user_id'";
+$pro_u = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
+$product_in_cart = [];
+foreach($pro_u as $v) {
+  $p = $conn->query("SELECT * FROM products WHERE id='$v[pro_id]'")->fetch_assoc();
+  $product_in_cart[] = $p;
+}
+// echo "<pre>";
+// print_r($product_in_cart);
+// echo "</pre>";
+if(!isset($_SESSION["user_data"])) {
+  $m = "<div class='fs-1 text-center'>You need to login first :)</div>";
+}
+elseif(empty($product_in_cart)) {
+  $m = "<div class='fs-1 text-center'>cart is empty :( </div>";
+}
+?>
 
       <!--  Modal -->
       <div class="modal fade" id="productView" tabindex="-1" role="dialog" aria-hidden="true">
@@ -58,12 +77,14 @@
             </div>
           </div>
         </section>
+        <?= $m ?? "" ?>
         <section class="py-5">
           <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
           <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
               <!-- CART TABLE-->
               <div class="table-responsive mb-4">
+                
                 <table class="table">
                   <thead class="bg-light">
                     <tr>
@@ -75,14 +96,19 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <?php 
+                    foreach($product_in_cart as $c) {
+                      $select_imgs = "SELECT * FROM images WHERE pro_id='$c[id]'";
+                      $imgs = $conn->query($select_imgs)->fetch_all(MYSQLI_ASSOC);
+                    ?>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.php"><img src="img/product-detail-3.jpg" alt="..." width="70"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.php">Red digital smartwatch</a></strong></div>
+                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.php"><img src="admin/images/<?=$imgs[0]["name"]?>" alt="..." width="70"/></a>
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.php"><?=$c["name"]?></a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">$250</p>
+                        <p class="mb-0 small">$<?=$c["price"]?></p>
                       </td>
                       <td class="align-middle border-0">
                         <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
@@ -94,33 +120,11 @@
                         </div>
                       </td>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">$250</p>
+                        <p class="mb-0 small">$<?=$c["price"]?></p>
                       </td>
                       <td class="align-middle border-0"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
                     </tr>
-                    <tr>
-                      <th class="pl-0 border-light" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.php"><img src="img/product-detail-2.jpg" alt="..." width="70"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.php">Apple watch</a></strong></div>
-                        </div>
-                      </th>
-                      <td class="align-middle border-light">
-                        <p class="mb-0 small">$250</p>
-                      </td>
-                      <td class="align-middle border-light">
-                        <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
-                          <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="1"/>
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle border-light">
-                        <p class="mb-0 small">$250</p>
-                      </td>
-                      <td class="align-middle border-light"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
-                    </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
               </div>

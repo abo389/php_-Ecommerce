@@ -1,5 +1,7 @@
 <?php
-  include("includes/functions/conn.php");
+  include("./includes/template/header.php");
+
+//   include("includes/functions/conn.php");
   if($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -10,13 +12,12 @@
     $is_user = $conn->query($check)->num_rows === 1;
     if($is_user) {
         $_SESSION["user_data"] = $user_data;
-        header("location: index.php");
+        echo "<script>window.location.href = 'index.php';</script>";
     }
     else {
       $m = "<div class='alert alert-danger'>Wrong email or password</div>";
     }
   }
-  include("./includes/template/header.php");
   ?>
 <div class="row container" style="margin: 100px auto !important;">
     <img class="col-lg-6 m-0 d-none d-lg-block" src="./img//Mobile login-rafiki.png"></img>

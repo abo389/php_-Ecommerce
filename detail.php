@@ -8,6 +8,10 @@ if(isset($_GET["id"])) {
 $pro_detail = $conn->query($select)->fetch_assoc();
 
 $category = $conn->query("SELECT * FROM category WHERE id=".$pro_detail["cat"])->fetch_assoc()["name"];
+
+if(isset($_SESSION["user_data"])) {
+  $href = "includes/functions/addToCart.php?p_id=".$pro_detail['id']."&u_id=".$_SESSION["user_data"]["id"];
+} else { $href= "cart.php";}
 ?>
 
       <!--  Modal -->
@@ -108,7 +112,8 @@ $category = $conn->query("SELECT * FROM category WHERE id=".$pro_detail["cat"])-
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="cart.php">Add to cart</a></div>
+                <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" 
+                href="<?=$href?>">Add to cart</a></div>
               </div><a class="btn btn-link text-dark p-0 mb-4" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a><br>
               <ul class="list-unstyled small d-inline-block">
                 <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">SKU:</strong><span class="ml-2 text-muted">039</span></li>

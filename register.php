@@ -1,5 +1,9 @@
 <?php
-  include("includes/functions/conn.php");
+    // session_start();
+
+    include("./includes/template/header.php");
+
+//   include("includes/functions/conn.php");
   include("includes/functions/errors.php");
   if($_SERVER["REQUEST_METHOD"] === "POST") {
     $_POST["permission"] = 4;
@@ -16,11 +20,12 @@
       $insert = "INSERT INTO users(name,email,password,gender,permission)
       VALUES('$full_name','$email','$password','$gender','$permission')";
       $conn->query($insert);
-      $_SESSION["user_data"]["name"] = $full_name;
-      header("location: index.php");
+      $current_user_id = $conn->insert_id;
+      $current_user_data = $conn->query("SELECT * FROM users WHERE id='$current_user_data'");
+      $_SESSION["user_data"] = $current_user_data;
+      echo "<script>window.location.href = 'index.php';</script>";
     }
 }
-include("./includes/template/header.php");
 ?>
 <div class="row container" style="margin: 100px auto !important;">
     <img class="col-lg-5 d-none d-lg-block" src="./img/Developer activity-bro.png"></img>

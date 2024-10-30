@@ -3,6 +3,10 @@ include("includes/template/header.php");
 $offsit=0;
 $limit = 6;
 
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
+
 if(isset($_GET["offset"])) {
   $n = $_GET["offset"]-1;
   $offsit = $limit*$n;
@@ -17,6 +21,7 @@ if(isset($_GET["catId"]) && !empty($_GET["catId"])) {
 }
 // echo $pro_nums;
 $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
       <!--  Modal -->
@@ -63,7 +68,8 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
+                      <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" 
+                      href="#">Add to cart</a></div>
                     </div><a class="btn btn-link text-dark p-0" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a>
                   </div>
                 </div>
@@ -135,6 +141,9 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
                   foreach($all_pro as $pro) {
                   $select_imgs = "SELECT * FROM images WHERE pro_id='$pro[id]'";
                   $imgs = $conn->query($select_imgs)->fetch_all(MYSQLI_ASSOC);
+                  if(isset($_SESSION["user_data"])) {
+                    $href = "includes/functions/addToCart.php?p_id=".$pro['id']."&u_id=".$_SESSION["user_data"]["id"];
+                  } else { $href= "cart.php";}
                   ?>
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
@@ -143,7 +152,8 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
                         <div class="product-overlay">
                           <ul class="mb-0 list-inline">
                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.html">Add to cart</a></li>
+                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" 
+                            href="<?=$href?>">Add to cart</a></li>
                             <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#productView-<?=$pro["id"]?>" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                           </ul>
                         </div>
