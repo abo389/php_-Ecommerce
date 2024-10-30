@@ -23,9 +23,9 @@
         </a>
     HTML;
     $delete_button = <<<HTML
-        <a style="display: inline-block;" href="?name=$table_name&action=delete&id=$id">
-          <button id="deletebtn" class="btn btn-danger">Delete</button>
-        </a>
+    <button type="button" class="btn btn-danger ml-1" data-toggle="modal" data-target="#$table_name-$id">
+      Delete
+    </button>
     HTML;
 
     if($table_name === "users") {

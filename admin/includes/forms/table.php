@@ -10,7 +10,7 @@
       $colum_names = array_keys($conn->query($select)->fetch_all(MYSQLI_ASSOC)[0]);
       if($table_name === "products" || $table_name === "images") array_push($colum_names,"image");
       $items_nums = count($conn->query($select)->fetch_all());
-      $all = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
+      $_SESSION["table_data"] = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
       if($table_name === "users") {
         $current_user = current_user_row();
         array_unshift($all, $current_user);
@@ -18,11 +18,33 @@
       };
 
       // echo "<pre>";
-      // print_r($all);
+      // print_r(current_user_row());
       // echo "</pre>";
 
       $_SESSION["colum_names"] = $colum_names;
     ?>
+          <!-- Modal -->
+        <?php
+        foreach($_SESSION["table_data"] as $p) {
+        ?>
+      <div class="modal fade" id="<?=$table_name."-".$p["id"]?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Are You sure</h1>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              this action can be reversed
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" data-dismiss="modal" id="<?=$table_name."-".$p["id"]?>" class="btn btn-danger do-delete">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"><?=$table_name?></h1>
     <!-- DataTales Example -->
@@ -50,11 +72,11 @@
                         echo "<tr>";
                         foreach($colum_names as $n) {
                           if($n === "description") {
-                            echo "<td style='max-width: 300px;'>".substr($all[$i][$n],0,100)."</td>";
+                            echo "<td style='max-width: 300px;'>".substr($_SESSION["table_data"][$i][$n],0,100)."</td>";
                           }
                           elseif ($n === "image") {
                             if($table_name === "products") {
-                              $pro_id = $all[$i]["id"];
+                              $pro_id = $_SESSION["table_data"][$i]["id"];
                               $select = "SELECT name FROM `images` WHERE pro_id='$pro_id'";
                               $data = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
                               echo "<td>";
@@ -64,17 +86,17 @@
                               echo "</td>";
                             }
                             if($table_name === "images") {
-                              $name = $all[$i]["name"];
+                              $name = $_SESSION["table_data"][$i]["name"];
                               echo "<td><img style='height: 50px;' src='images/$name'/></td>";
                             }
                             
                           }
                           else {
-                            echo "<td>".$all[$i][$n]."</td>";
+                            echo "<td>".$_SESSION["table_data"][$i][$n]."</td>";
                           }
                         } 
                         echo "<td>";
-                        echo permissions($all[$i]["id"]);
+                        echo permissions($_SESSION["table_data"][$i]["id"]);
                         echo "</td>";
                         ?>
 
