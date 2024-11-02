@@ -1,9 +1,5 @@
 <?php
-    // session_start();
-
-    include("./includes/template/header.php");
-
-//   include("includes/functions/conn.php");
+  include("./includes/template/header.php");
   include("includes/functions/errors.php");
   if($_SERVER["REQUEST_METHOD"] === "POST") {
     $_POST["permission"] = 4;
@@ -21,7 +17,7 @@
       VALUES('$full_name','$email','$password','$gender','$permission')";
       $conn->query($insert);
       $current_user_id = $conn->insert_id;
-      $current_user_data = $conn->query("SELECT * FROM users WHERE id='$current_user_data'");
+      $current_user_data = $conn->query("SELECT * FROM users WHERE id='$current_user_id'")->fetch_assoc();
       $_SESSION["user_data"] = $current_user_data;
       echo "<script>window.location.href = 'index.php';</script>";
     }

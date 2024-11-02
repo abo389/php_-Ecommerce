@@ -1,6 +1,9 @@
 <?php
 session_start();
 include("./includes/functions/conn.php");
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html>

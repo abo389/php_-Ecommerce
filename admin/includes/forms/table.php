@@ -4,7 +4,6 @@
       include("./includes/functions/permissions.php");
       $table_name = $_GET["name"];
       $select = select_table($table_name);
-
       
       
       $colum_names = array_keys($conn->query($select)->fetch_all(MYSQLI_ASSOC)[0]);
@@ -13,13 +12,9 @@
       $_SESSION["table_data"] = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
       if($table_name === "users") {
         $current_user = current_user_row();
-        array_unshift($all, $current_user);
+        array_unshift($_SESSION["table_data"], $current_user);
         $items_nums++;
       };
-
-      // echo "<pre>";
-      // print_r(current_user_row());
-      // echo "</pre>";
 
       $_SESSION["colum_names"] = $colum_names;
     ?>
@@ -69,7 +64,8 @@
                     <tbody>
                       <?php
                       for ($i=0; $i < $items_nums; $i++) {
-                        echo "<tr>";
+                        $item_id = $_SESSION["table_data"][$i]["id"];
+                        echo "<tr id='item-$item_id'>";
                         foreach($colum_names as $n) {
                           if($n === "description") {
                             echo "<td style='max-width: 300px;'>".substr($_SESSION["table_data"][$i][$n],0,100)."</td>";
@@ -95,13 +91,9 @@
                             echo "<td>".$_SESSION["table_data"][$i][$n]."</td>";
                           }
                         } 
-                        echo "<td>";
                         echo permissions($_SESSION["table_data"][$i]["id"]);
-                        echo "</td>";
-                        ?>
-
-                          </tr>
-                      <?php } ?>
+                        echo "</tr>";
+                        } ?>
                     </tbody>
                 </table>
             </div>

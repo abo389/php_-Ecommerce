@@ -8,9 +8,6 @@ foreach($pro_u as $v) {
   $p = $conn->query("SELECT * FROM products WHERE id='$v[pro_id]'")->fetch_assoc();
   $product_in_cart[] = $p;
 }
-// echo "<pre>";
-// print_r($product_in_cart);
-// echo "</pre>";
 if(!isset($_SESSION["user_data"])) {
   $m = "<div class='fs-1 text-center'>You need to login first :)</div>";
 }
@@ -91,7 +88,6 @@ elseif(empty($product_in_cart)) {
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Product</strong></th>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Price</strong></th>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Quantity</strong></th>
-                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Total</strong></th>
                       <th class="border-0" scope="col"> </th>
                     </tr>
                   </thead>
@@ -100,6 +96,7 @@ elseif(empty($product_in_cart)) {
                     foreach($product_in_cart as $c) {
                       $select_imgs = "SELECT * FROM images WHERE pro_id='$c[id]'";
                       $imgs = $conn->query($select_imgs)->fetch_all(MYSQLI_ASSOC);
+                      $quantity = $conn->query($select." AND pro_id='$c[id]'")->fetch_assoc()["quantity"];
                     ?>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
@@ -111,18 +108,21 @@ elseif(empty($product_in_cart)) {
                         <p class="mb-0 small">$<?=$c["price"]?></p>
                       </td>
                       <td class="align-middle border-0">
-                        <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
+                        <div class="border d-flex align-items-center justify-content-between px-3">
+                          <span class="small text-uppercase text-gray headings-font-family">Quantity</span>
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="1"/>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<?=$quantity?>"/>
                             <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
                       </td>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">$<?=$c["price"]?></p>
+                        <a class="reset-anchor" 
+                        href="includes/functions/deleteFromCart.php?p_id=<?=$c['id']?>&u_id=<?=$user_id?>">
+                          <i class="fas fa-trash-alt small text-muted"></i>
+                        </a>
                       </td>
-                      <td class="align-middle border-0"><a class="reset-anchor" href="#"><i class="fas fa-trash-alt small text-muted"></i></a></td>
                     </tr>
                     <?php } ?>
                   </tbody>

@@ -40,7 +40,7 @@
       $controls = $edit_button.$delete_button;
     }
 
-    return $controls;
+    return "<td>".$controls."</td>";
   }
 
 ?>
