@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 session_start();
 include("connect.php");
 include("handel_img.php");
@@ -16,7 +17,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   
   // check for errors
   if(!empty($_SESSION["errors"])) {
-    print_r($_SESSION["errors"]);
+    $response = ["status" => "error", "message" => $_SESSION["errors"]];
+    echo json_encode($response);
+    // print_r($_SESSION["errors"]);
     // header("location: ".$_SESSION["last_url"]);
     exit();
   }
@@ -38,17 +41,21 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   // };
   
   // upload images
-  if(isset($_FILES["images"])){
-    $tmps = $_FILES["images"]["tmp_name"];
-    for ($i=0; $i < count($tmps); $i++) { 
-      move_uploaded_file($tmps[$i], "../../images/".$image[$i]);
-    }
-  };
+  // if(isset($_FILES["images"])){
+  //   $tmps = $_FILES["images"]["tmp_name"];
+  //   for ($i=0; $i < count($tmps); $i++) { 
+  //     move_uploaded_file($tmps[$i], "../../images/".$image[$i]);
+  //   }
+  // };
 
   // redirect
-  echo "added succssesfuly";
+  $response = ["status" => "success", "message" => "Data added succssesfuly","id"=> $pro_id];
+  echo json_encode($response);
+  // echo "added succssesfuly";
   // header("location: ../../tables.php?name=$table_name");
 } else {
-  echo "somting went wrong";
+  $response = ["status" => "failed", "message" => "somting went wrong"];
+  echo json_encode($response);
+  // echo "somting went wrong";
   // header("location: ../../tables.php?name=$table_name");
 }

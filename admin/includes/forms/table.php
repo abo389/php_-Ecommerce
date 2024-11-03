@@ -19,16 +19,19 @@
 
       $_SESSION["colum_names"] = $colum_names;
     ?>
-          <!-- delete Modals -->
+      <!-- delete Modals -->
+      <div id="modals-wrapper">
         <?php
-        foreach($all as $p) {
-        ?>
+        foreach($all as $p) {?>
+
       <div class="modal fade" id="<?=$table_name."-".$p["id"]?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Are You sure</h1>
-              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
             <div class="modal-body">
               this action can be reversed
@@ -40,7 +43,9 @@
           </div>
         </div>
       </div>
+
       <?php } ?>
+      </div>
       <!-- add modal -->
       <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -55,8 +60,8 @@
               <form id="add-form" class="row g-3" enctype="multipart/form-data">
                 <?php echo inputs(); ?>
                 <div class="col-12 mt-3" style="text-align: end;">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" id="do-add" class="btn btn-primary">Add</button>
+                  <button type="button" id="close-add" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  class="btn btn-primary">Add</button>
                 </div>
               </form>
             </div>
@@ -88,7 +93,7 @@
                           <th style="min-width: 160px;">controls</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                       <?php
                       for ($i=0; $i < $items_nums; $i++) {
                         $item_id = $all[$i]["id"];

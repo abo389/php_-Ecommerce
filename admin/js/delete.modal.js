@@ -5,18 +5,18 @@ for ( let i = 0; i < deleteModals.length; i++ )
   deleteModals[ i ].addEventListener( "click", async () =>
   {
     let [ name, id ] = deleteModals[ i ].id.split( "-" );
-    await fetch("delete.php", {
+    let response = await fetch("delete.php", {
       method: "POST",
       headers: {
-        "Content-Type":  "application/json"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: JSON.stringify({ name, id })
+      body: new URLSearchParams({ name, id })
     })
-    document.getElementById( "item-" + id ).remove();
+    document.getElementById( "item-" + id ).remove()
+    let res = await response.text();
+    console.log(res)
   })
 }
-
-
 
 // useing jquery
 // let Modals = $( ".modal .do-delete" );
