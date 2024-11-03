@@ -9,14 +9,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   $_SESSION["errors"] = [];
 
   // handel image
-  $image = handel_img($_FILES,"add");
+  // $image = handel_img($_FILES,"add");
 
   // handel errors
   handel_errors($_POST);
   
   // check for errors
   if(!empty($_SESSION["errors"])) {
-    header("location: ".$_SESSION["last_url"]);
+    print_r($_SESSION["errors"]);
+    // header("location: ".$_SESSION["last_url"]);
     exit();
   }
 
@@ -24,11 +25,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   $colums = implode( ",",array_keys($_POST));
   $values = implode( "' , '",array_values($_POST));
 
-  // echo "<pre>";
-  // print_r($colums);
-  // echo "<br>";
-  // print_r($values);
-  // echo "</pre>";
   // send data
   $sql = "INSERT INTO `$table_name` ($colums) VALUES ('$values')";
   $conn->query($sql);
@@ -36,10 +32,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 
-  foreach($image as $img){
-    $insert = "INSERT INTO images (name,pro_id) VALUES ('$img','$pro_id')";
-    $conn->query($insert);
-  };
+  // foreach($image as $img){
+  //   $insert = "INSERT INTO images (name,pro_id) VALUES ('$img','$pro_id')";
+  //   $conn->query($insert);
+  // };
   
   // upload images
   if(isset($_FILES["images"])){
@@ -50,7 +46,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
   };
 
   // redirect
-  header("location: ../../tables.php?name=$table_name");
-} else {header("location: ../../tables.php?name=$table_name");}
-
-?>
+  echo "added succssesfuly";
+  // header("location: ../../tables.php?name=$table_name");
+} else {
+  echo "somting went wrong";
+  // header("location: ../../tables.php?name=$table_name");
+}

@@ -5,12 +5,19 @@
       include("./includes/functions/error_msg.php");
       $colum_names = $_SESSION["colum_names"];
       $table_name = $_GET["name"];
+      $output = [];
+      $table_name_input = <<<HTML
+      <span>
+        <span></span>
+        <input type="text" hidden name="table_name" value="$table_name">
+      </span>
+      HTML;
+      $output[] = $table_name_input;
       if(!empty($id)) {
         $select = "SELECT * FROM `$table_name` WHERE id='$id'";
         $data = $conn->query($select)->fetch_assoc();
       } 
       if(str_ends_with($table_name,"s")) $table_name = substr($table_name,0,(strlen($table_name)-1));
-      $output = [];
       $type = "text";
 
       foreach($colum_names as $k => $v) { 
@@ -58,8 +65,8 @@
         $me = (isset($data)) ? "value='$data[$v]'":"";
         $s1 = <<<HTML
         <div class="col-md-6 mb-3">
-          <label class="form-label">$table_name $v</label>
-          <input name="$v" $me type="$type" class="form-control" >
+          <label for="$k" class="form-label">$table_name $v</label>
+          <input id="$k" name="$v" $me type="$type" class="form-control" >
         HTML;
         $s2 = error_msg($v)."</div>";
         array_push($output,$s1.$s2);
@@ -67,8 +74,4 @@
       return implode("\n\r",$output);
     }
     
-    // echo "<pre>";
-    // print_r($output);
-    // echo "</pre>";
-    // exit();
     ?>
