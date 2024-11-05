@@ -3,60 +3,99 @@ const closeBtn = document.getElementById( "close-add" );
 const tableBody = document.getElementById( "tableBody" );
 const modalsWrapper = document.getElementById( "modals-wrapper" );
 
-
-addForm.addEventListener( "submit", async ( event ) =>
+addForm.addEventListener( "submit", ( event ) =>
 {
   event.preventDefault();
-  let data = {};
-  for (let i = 0; i < addForm.children.length - 1; i++) {
-    let key = addForm.children[ i ].children[ 1 ].name
-    let value = addForm.children[ i ].children[ 1 ].value
-    data[ key ] = value;
-  }
+  const formData = new FormData( addForm );
 
-  const response = await fetch("includes/functions/do_add.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams(data)
-  });
-  
-  const res = await response.json();
-  // Handle the response here
-  // console.log( res );
-  if ( res.status === "success" )
-  {
-    let id = res.id;
-    let table_name = Object.values( data )[ 0 ];
-    let row = tableRow( data, table_name, id );
-
-    tableBody.innerHTML += row;
-    closeBtn.click();
-    // addForm.setAttribute("aria-hidden","true")
-    // addBtn.setAttribute("data-dismiss","modal")
-  }
+  $.ajax({
+    url: "includes/functions/do_add.php",
+    type: "POST",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function(response) {
+      if ( response.status === "error" )
+      {
+        showErrors(response.message);
+      }
+      if ( response.status === "success" )
+        {
+          let id = response.id;
+          let table_name = formData.get("table_name");
+          let imgs = response.images;
+          let obj = Object.fromEntries( formData );
+          let row = tableRow( obj, table_name, id, imgs );
+          tableBody.innerHTML += row;
+          closeBtn.click();
+      }
+    }
+} );
 
 } )
 
-function tableRow ( obj, t_name, id )
+const idToName = {
+  "cat": [ "tv", "mobile", "t-shirt", "watch", "laptop", "pc", "head-phone" ],
+  "brand": ["apple", "Samsung", "dell", "LG", "zara", "ASUS", "honor", "NIKE"],
+  "permission": [ "owner", "admin", "operator", "user" ],
+  "gender": [ "", "", "male", "female" ]
+}
+
+function showErrors (errors)
 {
+  let len = addForm.children.length;
+  for ( let k = 0; k < len; k++ )
+  {
+    let input = addForm.children[ k ];
+    let inputName = addForm.children[ k ].children[ 1 ].name;
+    if ( inputName === "table_name" ) continue;
+    if ( errors[inputName] )
+    {
+      let errorDiv = document.createElement( "div" );
+      errorDiv.classList.add("alert")
+      errorDiv.classList.add( "alert-danger" )
+      errorDiv.innerHTML = errors[inputName]
+      input.appendChild(errorDiv)
+    }
+  }
+}
+
+function tableRow ( obj, t_name, id, imgs )
+{
+  if ( t_name === "products" )
+  {
+    obj[ "images[]" ] = imgs;
+  }
   let row = "<td>"+id+"</td>";
   for ( let i = 1; i < Object.keys( obj ).length; i++ )
   {
-    let v = Object.values( obj )[ i ]
-    if ( Object.keys( obj )[ i ] === "permission" )
-    {
-      row += "<td>" + permission( v ) + "</td>";
-      continue
+    let v = Object.values( obj )[ i ];
+    let k = Object.keys( obj )[ i ];
+
+    switch (k) {
+      case "permission":
+      case "gender":
+      case "brand":
+      case "cat":
+        row += "<td>" + idToName[k][v-1] + "</td>";
+        break;
+    
+      case "images[]":
+        row += "<td>0</td>"
+        row += "<td>"
+        for (let j = 0; j < v.length; j++) {
+          row += `<img style='width: 50px;' src='images/${v[j]}' />`
+        }
+        row += "</td>"
+        break;
+      
+      default:
+        row += "<td>"+v+"</td>"
+        break;
     }
-    if ( Object.keys( obj )[ i ] === "gender" )
-    {
-      row += "<td>" + gender( v ) + "</td>";
-      continue
-    }
-    row += "<td>"+v+"</td>"
+
   }
+
   row += `
   <td>
     <a style="display: inline-block;"
@@ -118,33 +157,4 @@ function createDeleteModal ( t_name, id )
       console.log(res)
     })
   }
-  // let allDeleteBtns = document.getElementsByClassName( "do-delete" );
-  // let lastIndex = ( ( allDeleteBtns ).length - 1 )
-  // let deleteBtn = allDeleteBtns[ lastIndex ];
-  // deleteBtn.addEventListener( "click", async () =>
-  //   {
-  //     let [ name, id ] = deleteBtn.id.split( "-" );
-  //     let response = await fetch("delete.php", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/x-www-form-urlencoded"
-  //       },
-  //       body: new URLSearchParams({ name, id })
-  //     })
-  //     document.getElementById( "item-" + id ).remove()
-  //     let res = await response.text();
-  //     console.log(res)
-  //   })
-}
-
-function permission (num)
-{
-  permission = [ "owner", "admin", "operator", "user" ];
-  return permission[num-1]
-}
-
-function gender (num)
-{
-  permission = [ "", "", "Male", "Female" ];
-  return permission[num-1]
 }

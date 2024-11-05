@@ -58,7 +58,10 @@
             </div>
             <div class="modal-body">
               <form id="add-form" class="row g-3" enctype="multipart/form-data">
-                <?php echo inputs(); ?>
+                <?php 
+                echo inputs();
+                unset($_SESSION["errors"]);
+                ?>
                 <div class="col-12 mt-3" style="text-align: end;">
                   <button type="button" id="close-add" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="submit"  class="btn btn-primary">Add</button>

@@ -1,8 +1,6 @@
 <?php 
-
     function inputs($id="") {
       include("./includes/functions/connect.php");
-      include("./includes/functions/error_msg.php");
       $colum_names = $_SESSION["colum_names"];
       $table_name = $_GET["name"];
       $output = [];
@@ -31,7 +29,7 @@
                 <label class='form-label'>$table_name $v</label>
                 <input type="file" class='form-control' name='images[]' accept="image/*" multiple >
               HTML;
-          $s2 = error_msg($v)."</div>";
+          $s2 = "</div>";
           array_push($output,$s1.$s2);
           continue;
         }
@@ -41,7 +39,6 @@
                 <label for='$k' class='form-label'>$table_name $v</label>
                 <select name='$v' class='form-control' id='$k'>
                 HTML;
-                $m = error_msg($v);
                 if($v === "cat") $v = "category";
                 $s2 = "<option value=''>select $v</option>";
                 if($table_name === "user") {
@@ -57,7 +54,7 @@
                   array_push($s3, "<option $me value='$va[id]'>$va[name]</option>") ;
                 }
                 $s3 = implode("\n\r",$s3);
-                $s4 = "</select>$m</div>";
+                $s4 = "</select></div>";
                 array_push($output,$s1.$s2.$s3.$s4);
           continue;
         }
@@ -68,7 +65,7 @@
           <label for="$k" class="form-label">$table_name $v</label>
           <input id="$k" name="$v" $me type="$type" class="form-control" >
         HTML;
-        $s2 = error_msg($v)."</div>";
+        $s2 = "</div>";
         array_push($output,$s1.$s2);
       } 
       return implode("\n\r",$output);
