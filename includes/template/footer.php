@@ -89,5 +89,8 @@
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+<script src="js/orderBy.js"></script>
+
+
   </body>
 </html>

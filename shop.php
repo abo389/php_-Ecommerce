@@ -2,6 +2,7 @@
 include("includes/template/header.php");
 $offsit=0;
 $limit = 6;
+$s ="";
 
 // echo "<pre>";
 // print_r($_SESSION);
@@ -11,16 +12,23 @@ if(isset($_GET["offset"])) {
   $n = $_GET["offset"]-1;
   $offsit = $limit*$n;
 }
+if(isset($_GET["sorting"])) {
+  $sort = $_GET["sorting"];
+  if($sort == "low-high") $s = "ORDER BY price ASC";
+  elseif($sort == "high-low") $s = "ORDER BY price DESC";
+}
 if(isset($_GET["catId"]) && !empty($_GET["catId"])) {
   $catId = $_GET["catId"];
   $pro_nums = count($conn->query("SELECT * FROM products WHERE cat='$catId'")->fetch_all());
-  $select = "SELECT * FROM products where cat='$catId' limit ".$limit." OFFSET ".$offsit;
+  $select = "SELECT * FROM products where cat='$catId' ".$s." limit ".$limit." OFFSET ".$offsit;
 } else {
-  $select = "SELECT * FROM products limit ".$limit." OFFSET ".$offsit;
+  $select = "SELECT * FROM products ".$s." limit ".$limit." OFFSET ".$offsit;
   $pro_nums = count($conn->query("SELECT * FROM products")->fetch_all());
 }
 // echo $pro_nums;
 $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
+
+$pagenationCount = ceil($pro_nums/$limit);
 
 ?>
 
@@ -125,11 +133,13 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th-large"></i></a></li>
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th"></i></a></li>
                       <li class="list-inline-item">
-                        <select class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
+                        <form id="sortForm" action="<?=$_SERVER["PHP_SELF"]?>" method="GET">
+                        <select id="sortSelect" class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
                           <option value="default">Default sorting</option>
                           <option value="low-high">Price: Low to High</option>
                           <option value="high-low">Price: High to Low</option>
                         </select>
+                        </form>
                       </li>
                     </ul>
                   </div>
@@ -167,9 +177,19 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
               <nav style="justify-self: center;" aria-label="Page navigation example">
                 <ul class="pagination justify-content-center justify-content-lg-end">
                   <li><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                  <li class="page-item"><a class="page-link" href="shop.php?offset=1&catId=<?=$catId??""?>">1</a></li>
-                  <li class="page-item"><a class="page-link" href="shop.php?offset=2&catId=<?=$catId??""?>">2</a></li>
-                  <li class="page-item"><a class="page-link" href="shop.php?offset=3&catId=<?=$catId??""?>">3</a></li>
+                  <?php 
+                  for ($i=1; $i < $pagenationCount+1; $i++) { 
+                    $c = $catId ?? "";
+                    echo <<<HTML
+                      <li class="page-item">
+                        <a class="page-link" 
+                        href="shop.php?catId=$c&offset=$i">
+                        $i
+                        </a>
+                      </li>
+                    HTML;
+                  }
+                  ?>
                   <li><a class="page-link" href="shop.php" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                 </ul>
               </nav>
@@ -177,16 +197,5 @@ $all_pro = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
           </div>
         </section>
       </div>
-      <!-- <script>
-        let pageItems = document.getElementsByClassName("page-item");
-        // console.log(pageItems[0]);
-        for (let i = 0; i < pageItems.length; i++) {
-          console.log(pageItems[i]);
-          pageItems[i].addEventListener("click", () => {
-            pageItems[i].classList.remove("active");
-            pageItems[i].classList.add("active");
-          })
-        }
-      </script> -->
       
 <?php include("includes/template/footer.php"); ?>
