@@ -28,6 +28,7 @@ switch ($method) {
               $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : null;
               $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
               $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+              $sort = isset($_GET['sort']) ? strtoupper($_GET['sort']) : null;
               $offset = ($page - 1) * $limit;
   
               $sql = $selectAllProducts;
@@ -35,14 +36,21 @@ switch ($method) {
               $params = []; // :cat_id => num, :limit = num, :offset = num
   
               if ($category_id) {
-              $sql .= " WHERE p.cat = :category_id GROUP by p.id ";
+              $sql .= " WHERE p.cat = :category_id ";
               $params[':category_id'] = $category_id;
+              }
+
+              $sql .= " GROUP by p.id ";
+
+              if($sort) {
+                if($sort === "DESC") $sql .= " ORDER BY p.price DESC ";
+                if($sort === "ASC") $sql .= " ORDER BY p.price ASC ";
               }
   
               $sql .= "LIMIT :limit OFFSET :offset";
               $params[':limit'] = $limit;
               $params[':offset'] = $offset;
-  
+
               $stmt1 = $pdo->prepare($sql);
   
               // Bind parameters for pagination and category filter

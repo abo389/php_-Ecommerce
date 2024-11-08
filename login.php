@@ -12,7 +12,10 @@
     $is_user = $conn->query($check)->num_rows === 1;
     if($is_user) {
         $_SESSION["user_data"] = $user_data;
-        echo "<script>window.location.href = 'index.php';</script>";
+        echo "<script>
+        localStorage.setItem('user_data', $user_data);
+        window.location.href = 'index.php';
+        </script>";
     }
     else {
       $m = "<div class='alert alert-danger'>Wrong email or password</div>";

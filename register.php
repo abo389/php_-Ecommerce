@@ -19,7 +19,11 @@
       $current_user_id = $conn->insert_id;
       $current_user_data = $conn->query("SELECT * FROM users WHERE id='$current_user_id'")->fetch_assoc();
       $_SESSION["user_data"] = $current_user_data;
-      echo "<script>window.location.href = 'index.php';</script>";
+      $sto = "['".implode( "', '", $current_user_data)."']";
+      echo "<script>
+      localStorage.setItem('user_data', $sto);
+      location.href = 'index.php';
+      </script>";
     }
 }
 ?>
