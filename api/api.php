@@ -3,6 +3,8 @@
 // api.php
 header("Content-Type: application/json");
 
+// print_r(json_decode(file_get_contents("php://input"), true));
+
 // Include database configuration
 require 'config.php';
 require "stmt.php";
@@ -16,7 +18,7 @@ if(isset($request)) @[$table_name, $id] = $request;
 
 // Define the API actions
 switch ($method) {
-    case 'GET':
+  case 'GET':
         if (isset($id)) {
           // Fetch single item by ID
           if($table_name === "products") getSingleItem($pdo, $selectSingelProduct, $id);
@@ -85,9 +87,25 @@ switch ($method) {
         }
         break;
 
-    default:
-        echo json_encode(['error' => 'Invalid HTTP Method']);
-        break;
+    
+  case 'PUT':
+      if ($table_name === "cart") {
+        $id == "+" ? updateItem($pdo, $updateCartInc) : updateItem($pdo, $updateCartDec);
+      } else {
+          echo json_encode(['error' => 'No ID specified']);
+      }
+      break;
+  case 'DELETE':
+      if ($table_name === "cart") {
+          deleteItem($pdo, $deleteCartItem);
+      } else {
+          echo json_encode(['error' => 'No ID specified']);
+      }
+      break;
+
+  default:
+    echo json_encode(['error' => 'Invalid HTTP Method']);
+    break;
 }
 
 function getAllItems($pdo, $select) {
@@ -101,4 +119,25 @@ function getSingleItem($pdo, $select, $id) {
     $stmt = $pdo->prepare($select);
     $stmt->execute([$id]);
     echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+}
+
+
+function updateItem($pdo, $sql) {
+  $data = json_decode(file_get_contents("php://input"), true);
+  $stmt = $pdo->prepare($sql);
+  if ($stmt->execute([$data['user_id'], $data['pro_id']])) {
+      echo json_encode(['status' => 'Item updated']);
+  } else {
+      echo json_encode(['error' => 'Failed to update item']);
+  }
+}
+
+function deleteItem($pdo, $sql) {
+  $data = json_decode(file_get_contents("php://input"), true);
+  $stmt = $pdo->prepare($sql);
+  if ($stmt->execute([$data["user_id"], $data["pro_id"]])) {
+      echo json_encode(['status' => 'Item deleted']);
+  } else {
+      echo json_encode(['error' => 'Failed to delete item']);
+  }
 }

@@ -2,9 +2,9 @@
 const deleteModals = document.getElementsByClassName( "do-delete" );
 for ( let i = 0; i < deleteModals.length; i++ )
 {
-  deleteModals[ i ].addEventListener( "click", async () =>
+  deleteModals[ i ].addEventListener( "click", async (e) =>
   {
-    let [ name, id ] = deleteModals[ i ].id.split( "-" );
+    let [ name, id ] = e.target.id.split( "-" );
     let response = await fetch("delete.php", {
       method: "POST",
       headers: {

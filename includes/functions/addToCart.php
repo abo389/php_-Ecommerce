@@ -5,6 +5,8 @@ if($_SERVER["REQUEST_METHOD"] === "GET") {
   $userId = $_GET["u_id"];
   
   // check if item alredy exist
+  // $item => 1
+  // $item => 0
   $item = $conn->query("SELECT * FROM cart WHERE user_id='$userId' AND pro_id='$productId'")->num_rows;
   if($item) {
     $insert = "UPDATE cart SET quantity = quantity + 1 WHERE pro_id=".$productId." AND user_id=".$userId;

@@ -44,12 +44,34 @@ $selectSingelProduct = "SELECT
 $selectAllCategory = "SELECT * FROM category";
 
 $selectCartItem = "SELECT 
-    p.name, 
-    p.price, 
-    c.quantity, 
-    p.price*c.quantity as total 
-    FROM `cart` c 
-    inner join products p 
-    on p.id = c.pro_id 
-    where c.user_id = ?;
-    ";
+p.id as productId, 
+p.name, 
+p.price, 
+c.quantity, 
+p.price*c.quantity as total,
+i.name as image
+FROM `cart` c 
+inner join products p 
+on p.id = c.pro_id 
+inner JOIN images i 
+on i.pro_id = p.id 
+where c.user_id = ?
+GROUP by p.id;
+";
+
+$updateCartInc = "UPDATE
+cart 
+SET 
+quantity = quantity + 1
+WHERE
+user_id = ? AND pro_id = ?
+";
+$updateCartDec = "UPDATE
+cart 
+SET 
+quantity = quantity - 1
+WHERE
+user_id = ? AND pro_id = ?
+";
+
+$deleteCartItem = "DELETE FROM cart WHERE user_id = ? AND pro_id = ?";

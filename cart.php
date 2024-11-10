@@ -88,43 +88,11 @@ elseif(empty($product_in_cart)) {
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Product</strong></th>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Price</strong></th>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Quantity</strong></th>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Total</strong></th>
                       <th class="border-0" scope="col"> </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <?php 
-                    foreach($product_in_cart as $c) {
-                      $select_imgs = "SELECT * FROM images WHERE pro_id='$c[id]'";
-                      $imgs = $conn->query($select_imgs)->fetch_all(MYSQLI_ASSOC);
-                      $quantity = $conn->query($select." AND pro_id='$c[id]'")->fetch_assoc()["quantity"];
-                    ?>
-                    <tr>
-                      <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.php"><img src="admin/images/<?=$imgs[0]["name"]?>" alt="..." width="70"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.php"><?=$c["name"]?></a></strong></div>
-                        </div>
-                      </th>
-                      <td class="align-middle border-0">
-                        <p class="mb-0 small">$<?=$c["price"]?></p>
-                      </td>
-                      <td class="align-middle border-0">
-                        <div class="border d-flex align-items-center justify-content-between px-3">
-                          <span class="small text-uppercase text-gray headings-font-family">Quantity</span>
-                          <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<?=$quantity?>"/>
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle border-0">
-                        <a class="reset-anchor" 
-                        href="includes/functions/deleteFromCart.php?p_id=<?=$c['id']?>&u_id=<?=$user_id?>">
-                          <i class="fas fa-trash-alt small text-muted"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <?php } ?>
+                  <tbody id="cart-container">
                   </tbody>
                 </table>
               </div>
@@ -142,9 +110,9 @@ elseif(empty($product_in_cart)) {
                 <div class="card-body">
                   <h5 class="text-uppercase mb-4">Cart total</h5>
                   <ul class="list-unstyled mb-0">
-                    <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">$250</span></li>
+                    <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small orderTotal"></span></li>
                     <li class="border-bottom my-2"></li>
-                    <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>$250</span></li>
+                    <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span class="orderTotal"></span></li>
                     <li>
                       <form action="#">
                         <div class="form-group mb-0">

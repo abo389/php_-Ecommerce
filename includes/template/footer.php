@@ -91,6 +91,7 @@
 
 
 <script src="js/orderBy.js"></script>
+<script src="js/cart.js"></script>
 
 
   </body>
