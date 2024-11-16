@@ -12,8 +12,9 @@
     $is_user = $conn->query($check)->num_rows === 1;
     if($is_user) {
         $_SESSION["user_data"] = $user_data;
+        $sto = "['".implode( "', '", $user_data)."']";
         echo "<script>
-        localStorage.setItem('user_data', $user_data);
+        localStorage.setItem('user_data', $sto);
         window.location.href = 'index.php';
         </script>";
     }
