@@ -1,14 +1,12 @@
 # Php Ecommerce
+&nbsp;
+This project represents an e-commerce website developed using PHP. It is designed to provide a platform where users can browse products, add them to a shopping cart, and proceed to checkout. The application includes functionalities for user authentication, product management, and order processing.
 
 ## 🚀 Demo
-  [![](https://markdown-videos-api.jorgenkh.no/vimeo/1051099259%2Fc071ad9e4c?width=320&height=180&filetype=png)](https://vimeo.com/1051099259/c071ad9e4c)
+  [![](https://markdown-videos-api.jorgenkh.no/vimeo/1051816012%2Fe2697401b2?width=320&height=180&filetype=png)](https://vimeo.com/1051816012/e2697401b2)
 
-&nbsp;
-&nbsp;
 
-## 📖 Description
 
-This project represents an e-commerce website developed using PHP. It is designed to provide a platform where users can browse products, add them to a shopping cart, and proceed to checkout. The application includes functionalities for user authentication, product management, and order processing.
 
 &nbsp;
 &nbsp;
