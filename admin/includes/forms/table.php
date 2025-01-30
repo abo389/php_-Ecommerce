@@ -9,7 +9,7 @@
       
       
       $colum_names = array_keys($conn->query($select)->fetch_all(MYSQLI_ASSOC)[0]);
-      // if($table_name === "products" || $table_name === "images") array_push($colum_names,"image");
+      if($table_name === "products" || $table_name === "images") array_push($colum_names,"image");
       $items_nums = count($conn->query($select)->fetch_all());
       $all = $conn->query($select)->fetch_all(MYSQLI_ASSOC);
       if($table_name === "users") {
@@ -94,7 +94,7 @@
                           foreach($colum_names as $v) { ?>
                             <th><?=$v?></th>
                           <?php } ?>
-                          <!-- <th style="min-width: 160px;">controls</th> -->
+                          <th style="min-width: 160px;">controls</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -127,7 +127,7 @@
                             echo "<td>".$all[$i][$n]."</td>";
                           }
                         } 
-                        // echo permissions($all[$i]["id"]);
+                        echo permissions($all[$i]["id"]);
                         echo "</tr>";
                         } ?>
                     </tbody>

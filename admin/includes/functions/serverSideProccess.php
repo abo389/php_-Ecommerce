@@ -19,7 +19,7 @@
  */
  
 // DB table to use
-$table = $_SESSION["tName"];
+$table = "vw_".$_SESSION["tName"];
  
 // Table's primary key
 $primaryKey = 'id';
@@ -29,14 +29,22 @@ $primaryKey = 'id';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 
-
+// include_once "permissions.php";
 $colArr = $_SESSION["colum_names"];
 $arr = [];
 for ($i=0; $i < count($colArr); $i++) { 
   if($colArr[$i] == "image") continue;
   array_push($arr, ["db" => $colArr[$i], "dt" => $i]);
 }
-$arr[] = ["db" => "", "dt" => 6];
+
+// $arr[] = [
+//   "db" => "controlles", 
+//   "dt" => count($colArr)+1,  
+// 'formatter' => function( $d, $row ) {
+//   // return '$'.number_format($d);
+//   return "jkfhvkd";
+// }
+// ];
 
 // print_r($arr);
 // exit();
