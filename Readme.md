@@ -1,4 +1,4 @@
-# laravel-chat-app
+# Php Ecommerce
 
 &nbsp;
 &nbsp;
@@ -12,31 +12,29 @@
 
 ## 📖 Description
 
-This project is a real-time chat application built using Laravel. It allows users to send and receive messages instantly, providing an interactive and seamless chatting experience. The application features user authentication, chat room management, and real-time messaging using Laravel Pusher.
+This project represents an e-commerce website developed using PHP. It is designed to provide a platform where users can browse products, add them to a shopping cart, and proceed to checkout. The application includes functionalities for user authentication, product management, and order processing.
 
 &nbsp;
 &nbsp;
 
 ## 🌟 Features
 
-- Real-Time Messaging: Facilitates instant communication between users, allowing for seamless real-time conversations.
-- User Authentication: Ensures secure access by implementing user registration and login functionalities.
-- Responsive Design: Optimized for various devices, providing a consistent user experience across desktops, tablets, and smartphones.
-- Chat Room Management: Allows users to create, join, and manage multiple chat rooms for organized discussions.
-- Message Notifications: Notifies users of new messages to keep them engaged and informed.
-
-
+- **User Authentication**: Allows users to register, log in, and manage their accounts securely.
+- **Product Catalog**: Displays a list of products with details such as images, descriptions, and prices.
+- **Shopping Cart**: Enables users to add products to a cart, update quantities, and remove items.
+- **Checkout Process**: Facilitates the process of reviewing the cart and placing orders.
+- **Admin Panel**: Provides administrative functionalities to manage products, categories, and orders.
 
 &nbsp;
 &nbsp;
 
-## 🖥️ Tech Stack  
+## 🖥️ Tech Stack
 
-- **Backend Framework**: Laravel – A PHP framework for building scalable web applications.  
-- **Frontend**: Laravel Blade Templating Engine – Used for rendering dynamic views.  
-- **JavaScript Library**: jQuery – Simplifies DOM manipulation and AJAX requests.  
-- **Database**: MySQL – Relational database for storing user and message data.  
-- **Real-Time Communication**: Pusher – Enables real-time messaging functionality.
+- **Backend**: PHP – The core programming language used for server-side logic.
+- **Database**: MySQL – Utilized for storing user information, product details, and order records.
+- **Frontend**: HTML, CSS, and JavaScript – Employed for structuring and styling the web pages, as well as adding interactivity.
+- **Additional Libraries**: jQuery – A JavaScript library used to simplify DOM manipulation and event handling.
+- **Icons**: FontAwesome – Provides a set of icons used throughout the application.
 
 &nbsp;
 &nbsp;
@@ -49,41 +47,9 @@ To set up the project locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/abo389/laravel-chat-app.git
-   cd laravel-chat-app
+   git clone https://github.com/abo389/php_Ecommerce.git
+   cd php_Ecommerce
    ```
-
-2. **Install dependencies:**
-
-    ```bash
-    composer install
-    npm install
-    ```
-
-3. **Set up the environment file:**
-
-   ```bash
-   cp .env.example .env
-   ```
-
-4. **Generate the application key:**
-
-   ```bash
-   php artisan key:generate
-   ```
-
-5. **Run the migrations:**
-
-   ```bash
-   php artisan migrate
-   ```
-
-6. **Start the development server:**
-
-   ```bash
-   php artisan serve
-    ```
-   The app will be available at http://127.0.0.1:8000.
 
 &nbsp;
 &nbsp;
