@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2024 at 10:10 PM
--- Server version: 10.4.32-MariaDB
+-- Generation Time: 30 يناير 2025 الساعة 09:18
+-- إصدار الخادم: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `brand`
+-- بنية الجدول `brand`
 --
 
 CREATE TABLE `brand` (
@@ -33,7 +33,7 @@ CREATE TABLE `brand` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `brand`
+-- إرجاع أو استيراد بيانات الجدول `brand`
 --
 
 INSERT INTO `brand` (`id`, `name`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `brand` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- بنية الجدول `cart`
 --
 
 CREATE TABLE `cart` (
@@ -59,19 +59,29 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `cart`
+-- إرجاع أو استيراد بيانات الجدول `cart`
 --
 
 INSERT INTO `cart` (`pro_id`, `user_id`, `quantity`) VALUES
-(80, 96, 3),
+(80, 96, 5),
 (84, 96, 1),
+(84, 98, 3),
+(93, 29, 4),
+(93, 98, 2),
+(93, 125, 4),
+(94, 29, 4),
+(94, 97, 2),
+(94, 98, 1),
+(95, 98, 8),
+(95, 125, 2),
+(105, 98, 6),
 (108, 96, 1),
 (120, 96, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- بنية الجدول `category`
 --
 
 CREATE TABLE `category` (
@@ -80,7 +90,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `category`
+-- إرجاع أو استيراد بيانات الجدول `category`
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
@@ -90,12 +100,12 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (4, 'watch'),
 (5, 'laptop'),
 (6, 'pc'),
-(7, 'head-phone');
+(7, 'ghmfghm');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gender`
+-- بنية الجدول `gender`
 --
 
 CREATE TABLE `gender` (
@@ -104,7 +114,7 @@ CREATE TABLE `gender` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `gender`
+-- إرجاع أو استيراد بيانات الجدول `gender`
 --
 
 INSERT INTO `gender` (`id`, `name`) VALUES
@@ -114,7 +124,7 @@ INSERT INTO `gender` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `images`
+-- بنية الجدول `images`
 --
 
 CREATE TABLE `images` (
@@ -124,7 +134,7 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `images`
+-- إرجاع أو استيراد بيانات الجدول `images`
 --
 
 INSERT INTO `images` (`id`, `pro_id`, `name`) VALUES
@@ -147,7 +157,6 @@ INSERT INTO `images` (`id`, `pro_id`, `name`) VALUES
 (95, 101, '1730779449605.jpg'),
 (96, 101, '1730779449103.jpg'),
 (101, 103, '1730807824822.jpeg'),
-(102, 104, '1730817545749.jpg'),
 (103, 105, '1730817838413.jpeg'),
 (104, 105, '1730817838919.jpg'),
 (105, 105, '173081783822.jpg'),
@@ -163,7 +172,6 @@ INSERT INTO `images` (`id`, `pro_id`, `name`) VALUES
 (115, 112, '1730819170988.jpeg'),
 (116, 112, '1730819170564.jpg'),
 (117, 112, '1730819170543.jpg'),
-(118, 113, '1730832096266.jpg'),
 (119, 114, '1730832491513.jpg'),
 (120, 115, '1730832912596.jpg'),
 (121, 115, '1730832912734.jpg'),
@@ -172,7 +180,6 @@ INSERT INTO `images` (`id`, `pro_id`, `name`) VALUES
 (128, 117, '1730833031660.jpg'),
 (129, 117, '1730833031207.jpg'),
 (130, 117, '1730833031604.jpg'),
-(131, 118, '1730833210631.jpeg'),
 (132, 119, '1730833402378.webp'),
 (133, 120, '1730911580368.jpeg'),
 (134, 120, '1730911580951.jpg'),
@@ -188,7 +195,7 @@ INSERT INTO `images` (`id`, `pro_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permission`
+-- بنية الجدول `permission`
 --
 
 CREATE TABLE `permission` (
@@ -197,7 +204,7 @@ CREATE TABLE `permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `permission`
+-- إرجاع أو استيراد بيانات الجدول `permission`
 --
 
 INSERT INTO `permission` (`id`, `name`) VALUES
@@ -209,7 +216,7 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- بنية الجدول `products`
 --
 
 CREATE TABLE `products` (
@@ -224,7 +231,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `products`
+-- إرجاع أو استيراد بيانات الجدول `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `cat`, `brand`, `count`, `description`, `views`) VALUES
@@ -240,7 +247,6 @@ INSERT INTO `products` (`id`, `name`, `price`, `cat`, `brand`, `count`, `descrip
 (100, 'Dennis Mccall', 548, 1, 5, 47, 'Sint magni aute aute', 0),
 (101, 'Vladimir Chan', 436, 3, 1, 67, 'Vitae asperiores vel', 0),
 (103, 'Savannah Winters', 455, 6, 7, 38, 'Porro amet voluptat', 0),
-(104, 'Fleur Morris', 917, 1, 4, 54, 'Sint velit anim arch', 0),
 (105, 'Chaim Sparks', 535, 5, 5, 1, 'Qui praesentium inci', 0),
 (106, 'Lara Ward', 862, 4, 4, 4, 'Facilis dicta neque ', 0),
 (107, 'Griffith Sharpe', 74, 3, 6, 84, 'Enim aliquip sit nat', 0),
@@ -249,11 +255,9 @@ INSERT INTO `products` (`id`, `name`, `price`, `cat`, `brand`, `count`, `descrip
 (110, 'Herman Acevedo', 607, 4, 5, 48, 'Excepturi blanditiis', 0),
 (111, 'Salvador Ayers', 576, 1, 6, 92, 'Eum est sed ab sint ', 0),
 (112, 'Ciaran Lott', 452, 7, 5, 78, 'Elit mollit aliquam', 0),
-(113, 'Forrest Hebert', 227, 5, 8, 67, 'Labore maiores ipsum', 0),
 (114, 'Alexander Joseph', 568, 2, 7, 79, 'Accusamus incidunt ', 0),
 (115, 'Karyn Chavez', 132, 5, 7, 32, 'Reiciendis facere nu', 0),
 (117, 'Olympia Phelps', 644, 3, 5, 57, 'Laudantium excepteu', 0),
-(118, 'Yen Bright', 920, 7, 4, 75, 'Dolore quasi et qui ', 0),
 (119, 'Christian Mccoy', 439, 3, 4, 15, 'Enim suscipit earum ', 0),
 (120, 'Oleg Cherry', 675, 5, 7, 27, 'Quam minim nostrum e', 0),
 (121, 'Todd Garrison', 794, 6, 2, 68, 'Alias sit natus dict', 0),
@@ -262,7 +266,7 @@ INSERT INTO `products` (`id`, `name`, `price`, `cat`, `brand`, `count`, `descrip
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- بنية الجدول `users`
 --
 
 CREATE TABLE `users` (
@@ -275,11 +279,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- إرجاع أو استيراد بيانات الجدول `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `gender`, `permission`) VALUES
-(3, 'osama', 'osos333', 'o@o.o', 3, 3),
 (8, 'hamada', 'hhhhhhhh', 'h@h.h', 3, 3),
 (29, 'abdo', '22222222', 'a@a.a', 3, 1),
 (91, 'Sage Katelyn', 'Pa$$w0rd!', 'jirukoqi@mailinator.com', 3, 4),
@@ -287,7 +290,42 @@ INSERT INTO `users` (`id`, `name`, `password`, `email`, `gender`, `permission`) 
 (93, 'Elvis Dan', 'Pa$$w0rd!', 'besapoq@mailinator.com', 4, 4),
 (94, 'Xantha Kareem', 'Pa$$w0rd!', 'nejygi@mailinator.com', 4, 4),
 (95, 'Nash Madonna', 'Pa$$w0rd!', 'vahytulu@mailinator.com', 4, 4),
-(96, 'Hild India', 'Pa$$w0rd!', 'gyme@mailinator.com', 4, 4);
+(96, 'Hild India', 'Pa$$w0rd!', 'gyme@mailinator.com', 4, 4),
+(97, 'Kelly Chester', 'Pa$$w0rd!', 'kyle@mailinator.com', 4, 4),
+(98, 'Axel Deborah', 'Pa$$w0rd!', 'bubadun@mailinator.com', 3, 4),
+(99, 'jufygadaxe', 'Pa$$w0rd!', 'xyluxomo@mailinator.com', 4, 4),
+(100, 'lanuhuca', 'Pa$$w0rd!', 'vehumokoty@mailinator.com', 3, 4),
+(101, 'tegeqiqido', 'Pa$$w0rd!', 'lyguniguv@mailinator.com', 3, 4),
+(102, 'tyzurykor', 'Pa$$w0rd!', 'wewihape@mailinator.com', 4, 4),
+(110, 'ghjg', 'fchgf', 'fmgch@nhg.jycgf', 4, 4),
+(123, 'ahmed', '123213', 'ahmed@mail.com', 3, 4),
+(125, 'Martina Xandr', 'Pa$$w0rd!', 'wonuvuly@mailinator.com', 3, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vw_products`
+-- (See below for the actual view)
+--
+CREATE TABLE `vw_products` (
+`name` varchar(255)
+,`price` int(11)
+,`category` varchar(255)
+,`brand` varchar(255)
+,`count` int(11)
+,`description` text
+,`image` mediumtext
+,`views` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vw_products`
+--
+DROP TABLE IF EXISTS `vw_products`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_products`  AS SELECT `p`.`name` AS `name`, `p`.`price` AS `price`, `c`.`name` AS `category`, `b`.`name` AS `brand`, `p`.`count` AS `count`, `p`.`description` AS `description`, group_concat(`i`.`name` separator ', ') AS `image`, `p`.`views` AS `views` FROM (((`products` `p` join `images` `i` on(`p`.`id` = `i`.`pro_id`)) join `brand` `b` on(`p`.`brand` = `b`.`id`)) join `category` `c` on(`c`.`id` = `p`.`cat`)) GROUP BY `p`.`id` ;
 
 --
 -- Indexes for dumped tables
@@ -363,7 +401,7 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `gender`
@@ -375,7 +413,7 @@ ALTER TABLE `gender`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT for table `permission`
@@ -387,40 +425,40 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
--- Constraints for dumped tables
+-- قيود الجداول المُلقاة.
 --
 
 --
--- Constraints for table `cart`
+-- قيود الجداول `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`pro_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `images`
+-- قيود الجداول `images`
 --
 ALTER TABLE `images`
   ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`pro_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `products`
+-- قيود الجداول `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`cat`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `users`
+-- قيود الجداول `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`gender`) REFERENCES `gender` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

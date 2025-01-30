@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: 30 يناير 2025 الساعة 09:18
+- إصدار الخادم: 10.4.32-MariaDB
+- PHP Version: 8.2.12
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="ecommers" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="brand">
+                CREATE TABLE `brand` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="cart">
+                CREATE TABLE `cart` (
+                  `pro_id` int(11) NOT NULL,
+                  `user_id` int(11) NOT NULL,
+                  `quantity` int(11) NOT NULL,
+                  PRIMARY KEY (`pro_id`,`user_id`),
+                  KEY `cart_ibfk_2` (`user_id`),
+                  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`pro_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="category">
+                CREATE TABLE `category` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="gender">
+                CREATE TABLE `gender` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="images">
+                CREATE TABLE `images` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `pro_id` int(11) NOT NULL,
+                  `name` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `pro_id` (`pro_id`),
+                  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`pro_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="permission">
+                CREATE TABLE `permission` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="products">
+                CREATE TABLE `products` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `price` int(11) NOT NULL,
+                  `cat` int(11) NOT NULL,
+                  `brand` int(11) NOT NULL,
+                  `count` int(11) NOT NULL,
+                  `description` text NOT NULL,
+                  `views` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `brand` (`brand`),
+                  KEY `cat` (`cat`),
+                  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                  CONSTRAINT `products_ibfk_2` FOREIGN KEY (`cat`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="users">
+                CREATE TABLE `users` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `password` varchar(255) NOT NULL,
+                  `email` varchar(255) NOT NULL,
+                  `gender` int(11) NOT NULL,
+                  `permission` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `user_name` (`name`),
+                  UNIQUE KEY `email` (`email`),
+                  KEY `gender` (`gender`),
+                  KEY `permission` (`permission`),
+                  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`gender`) REFERENCES `gender` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                  CONSTRAINT `users_ibfk_2` FOREIGN KEY (`permission`) REFERENCES `permission` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:view name="vw_products">
+                CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ecommers`.`vw_products` AS select `p`.`name` AS `name`,`p`.`price` AS `price`,`c`.`name` AS `category`,`b`.`name` AS `brand`,`p`.`count` AS `count`,`p`.`description` AS `description`,group_concat(`i`.`name` separator &#039;, &#039;) AS `image`,`p`.`views` AS `views` from (((`ecommers`.`products` `p` join `ecommers`.`images` `i` on(`p`.`id` = `i`.`pro_id`)) join `ecommers`.`brand` `b` on(`p`.`brand` = `b`.`id`)) join `ecommers`.`category` `c` on(`c`.`id` = `p`.`cat`)) group by `p`.`id`;
+            </pma:view>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'ecommers'
+    -->
+    <database name="ecommers">
+        <!-- الجدول brand -->
+        <table name="brand">
+            <column name="id">1</column>
+            <column name="name">apple</column>
+        </table>
+        <table name="brand">
+            <column name="id">2</column>
+            <column name="name">Samsung</column>
+        </table>
+        <table name="brand">
+            <column name="id">3</column>
+            <column name="name">dell</column>
+        </table>
+        <table name="brand">
+            <column name="id">4</column>
+            <column name="name">LG</column>
+        </table>
+        <table name="brand">
+            <column name="id">5</column>
+            <column name="name">zara</column>
+        </table>
+        <table name="brand">
+            <column name="id">6</column>
+            <column name="name">ASUS</column>
+        </table>
+        <table name="brand">
+            <column name="id">7</column>
+            <column name="name">honor</column>
+        </table>
+        <table name="brand">
+            <column name="id">8</column>
+            <column name="name">NIKE</column>
+        </table>
+        <!-- الجدول cart -->
+        <table name="cart">
+            <column name="pro_id">80</column>
+            <column name="user_id">96</column>
+            <column name="quantity">5</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">84</column>
+            <column name="user_id">96</column>
+            <column name="quantity">1</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">84</column>
+            <column name="user_id">98</column>
+            <column name="quantity">3</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">93</column>
+            <column name="user_id">29</column>
+            <column name="quantity">4</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">93</column>
+            <column name="user_id">98</column>
+            <column name="quantity">2</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">93</column>
+            <column name="user_id">125</column>
+            <column name="quantity">4</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">94</column>
+            <column name="user_id">29</column>
+            <column name="quantity">4</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">94</column>
+            <column name="user_id">97</column>
+            <column name="quantity">2</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">94</column>
+            <column name="user_id">98</column>
+            <column name="quantity">1</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">95</column>
+            <column name="user_id">98</column>
+            <column name="quantity">8</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">95</column>
+            <column name="user_id">125</column>
+            <column name="quantity">2</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">105</column>
+            <column name="user_id">98</column>
+            <column name="quantity">6</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">108</column>
+            <column name="user_id">96</column>
+            <column name="quantity">1</column>
+        </table>
+        <table name="cart">
+            <column name="pro_id">120</column>
+            <column name="user_id">96</column>
+            <column name="quantity">1</column>
+        </table>
+        <!-- الجدول category -->
+        <table name="category">
+            <column name="id">1</column>
+            <column name="name">tv</column>
+        </table>
+        <table name="category">
+            <column name="id">2</column>
+            <column name="name">mobile</column>
+        </table>
+        <table name="category">
+            <column name="id">3</column>
+            <column name="name">t-shirt</column>
+        </table>
+        <table name="category">
+            <column name="id">4</column>
+            <column name="name">watch</column>
+        </table>
+        <table name="category">
+            <column name="id">5</column>
+            <column name="name">laptop</column>
+        </table>
+        <table name="category">
+            <column name="id">6</column>
+            <column name="name">pc</column>
+        </table>
+        <table name="category">
+            <column name="id">7</column>
+            <column name="name">ghmfghm</column>
+        </table>
+        <!-- الجدول gender -->
+        <table name="gender">
+            <column name="id">3</column>
+            <column name="name">male</column>
+        </table>
+        <table name="gender">
+            <column name="id">4</column>
+            <column name="name">female</column>
+        </table>
+        <!-- الجدول images -->
+        <table name="images">
+            <column name="id">63</column>
+            <column name="pro_id">80</column>
+            <column name="name">1730042523508.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">64</column>
+            <column name="pro_id">80</column>
+            <column name="name">1730042523643.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">66</column>
+            <column name="pro_id">80</column>
+            <column name="name">1730042523376.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">74</column>
+            <column name="pro_id">84</column>
+            <column name="name">1730208055893.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">83</column>
+            <column name="pro_id">93</column>
+            <column name="name">1730487384980.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">84</column>
+            <column name="pro_id">94</column>
+            <column name="name">173048739994.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">85</column>
+            <column name="pro_id">95</column>
+            <column name="name">1730487425236.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">86</column>
+            <column name="pro_id">96</column>
+            <column name="name">1730487439372.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">87</column>
+            <column name="pro_id">97</column>
+            <column name="name">1730487455242.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">88</column>
+            <column name="pro_id">98</column>
+            <column name="name">1730779086386.webp</column>
+        </table>
+        <table name="images">
+            <column name="id">89</column>
+            <column name="pro_id">98</column>
+            <column name="name">1730779086453.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">90</column>
+            <column name="pro_id">98</column>
+            <column name="name">1730779086194.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">91</column>
+            <column name="pro_id">99</column>
+            <column name="name">1730779259310.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">92</column>
+            <column name="pro_id">100</column>
+            <column name="name">1730779364933.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">93</column>
+            <column name="pro_id">100</column>
+            <column name="name">173077936488.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">94</column>
+            <column name="pro_id">100</column>
+            <column name="name">1730779364622.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">95</column>
+            <column name="pro_id">101</column>
+            <column name="name">1730779449605.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">96</column>
+            <column name="pro_id">101</column>
+            <column name="name">1730779449103.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">101</column>
+            <column name="pro_id">103</column>
+            <column name="name">1730807824822.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">103</column>
+            <column name="pro_id">105</column>
+            <column name="name">1730817838413.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">104</column>
+            <column name="pro_id">105</column>
+            <column name="name">1730817838919.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">105</column>
+            <column name="pro_id">105</column>
+            <column name="name">173081783822.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">106</column>
+            <column name="pro_id">106</column>
+            <column name="name">1730817871808.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">107</column>
+            <column name="pro_id">107</column>
+            <column name="name">1730818094202.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">108</column>
+            <column name="pro_id">108</column>
+            <column name="name">1730818777811.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">109</column>
+            <column name="pro_id">109</column>
+            <column name="name">1730818875548.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">110</column>
+            <column name="pro_id">110</column>
+            <column name="name">1730818893822.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">111</column>
+            <column name="pro_id">110</column>
+            <column name="name">1730818893733.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">112</column>
+            <column name="pro_id">110</column>
+            <column name="name">1730818893435.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">113</column>
+            <column name="pro_id">111</column>
+            <column name="name">1730819130672.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">114</column>
+            <column name="pro_id">111</column>
+            <column name="name">1730819130231.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">115</column>
+            <column name="pro_id">112</column>
+            <column name="name">1730819170988.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">116</column>
+            <column name="pro_id">112</column>
+            <column name="name">1730819170564.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">117</column>
+            <column name="pro_id">112</column>
+            <column name="name">1730819170543.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">119</column>
+            <column name="pro_id">114</column>
+            <column name="name">1730832491513.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">120</column>
+            <column name="pro_id">115</column>
+            <column name="name">1730832912596.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">121</column>
+            <column name="pro_id">115</column>
+            <column name="name">1730832912734.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">122</column>
+            <column name="pro_id">115</column>
+            <column name="name">1730832912210.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">123</column>
+            <column name="pro_id">115</column>
+            <column name="name">1730832912397.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">128</column>
+            <column name="pro_id">117</column>
+            <column name="name">1730833031660.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">129</column>
+            <column name="pro_id">117</column>
+            <column name="name">1730833031207.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">130</column>
+            <column name="pro_id">117</column>
+            <column name="name">1730833031604.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">132</column>
+            <column name="pro_id">119</column>
+            <column name="name">1730833402378.webp</column>
+        </table>
+        <table name="images">
+            <column name="id">133</column>
+            <column name="pro_id">120</column>
+            <column name="name">1730911580368.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">134</column>
+            <column name="pro_id">120</column>
+            <column name="name">1730911580951.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">135</column>
+            <column name="pro_id">120</column>
+            <column name="name">1730911580377.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">136</column>
+            <column name="pro_id">120</column>
+            <column name="name">1730911580431.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">137</column>
+            <column name="pro_id">121</column>
+            <column name="name">1730911600865.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">138</column>
+            <column name="pro_id">121</column>
+            <column name="name">1730911600281.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">139</column>
+            <column name="pro_id">121</column>
+            <column name="name">1730911600566.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">140</column>
+            <column name="pro_id">122</column>
+            <column name="name">173091163086.jpeg</column>
+        </table>
+        <table name="images">
+            <column name="id">141</column>
+            <column name="pro_id">122</column>
+            <column name="name">1730911630935.jpg</column>
+        </table>
+        <table name="images">
+            <column name="id">142</column>
+            <column name="pro_id">122</column>
+            <column name="name">173091163057.jpg</column>
+        </table>
+        <!-- الجدول permission -->
+        <table name="permission">
+            <column name="id">1</column>
+            <column name="name">owner</column>
+        </table>
+        <table name="permission">
+            <column name="id">2</column>
+            <column name="name">admin</column>
+        </table>
+        <table name="permission">
+            <column name="id">3</column>
+            <column name="name">operator</column>
+        </table>
+        <table name="permission">
+            <column name="id">4</column>
+            <column name="name">user</column>
+        </table>
+        <!-- الجدول products -->
+        <table name="products">
+            <column name="id">80</column>
+            <column name="name">hamada</column>
+            <column name="price">98068</column>
+            <column name="cat">7</column>
+            <column name="brand">1</column>
+            <column name="count">65</column>
+            <column name="description">Buy online now at Pronk!</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">84</column>
+            <column name="name">Ross Keith</column>
+            <column name="price">523</column>
+            <column name="cat">4</column>
+            <column name="brand">3</column>
+            <column name="count">18</column>
+            <column name="description">Cumque repudiandae v</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">93</column>
+            <column name="name">Matthew Miles</column>
+            <column name="price">971</column>
+            <column name="cat">7</column>
+            <column name="brand">5</column>
+            <column name="count">62</column>
+            <column name="description">Mollitia qui et et i</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">94</column>
+            <column name="name">Karly Massey</column>
+            <column name="price">796</column>
+            <column name="cat">3</column>
+            <column name="brand">7</column>
+            <column name="count">67</column>
+            <column name="description">Adipisicing qui volu</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">95</column>
+            <column name="name">Rhoda Foley</column>
+            <column name="price">882</column>
+            <column name="cat">7</column>
+            <column name="brand">5</column>
+            <column name="count">63</column>
+            <column name="description">Fugit velit at cons</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">96</column>
+            <column name="name">Kuame Murphy</column>
+            <column name="price">410</column>
+            <column name="cat">5</column>
+            <column name="brand">6</column>
+            <column name="count">80</column>
+            <column name="description">Quis quia eos ea con</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">97</column>
+            <column name="name">Deacon Zimmerman</column>
+            <column name="price">686</column>
+            <column name="cat">3</column>
+            <column name="brand">3</column>
+            <column name="count">68</column>
+            <column name="description">Reprehenderit qui q</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">98</column>
+            <column name="name">Veronica Morin</column>
+            <column name="price">251</column>
+            <column name="cat">7</column>
+            <column name="brand">6</column>
+            <column name="count">90</column>
+            <column name="description">Adipisci corrupti a</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">99</column>
+            <column name="name">Bruno Carney</column>
+            <column name="price">490</column>
+            <column name="cat">3</column>
+            <column name="brand">5</column>
+            <column name="count">96</column>
+            <column name="description">Odio labore earum qu</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">100</column>
+            <column name="name">Dennis Mccall</column>
+            <column name="price">548</column>
+            <column name="cat">1</column>
+            <column name="brand">5</column>
+            <column name="count">47</column>
+            <column name="description">Sint magni aute aute</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">101</column>
+            <column name="name">Vladimir Chan</column>
+            <column name="price">436</column>
+            <column name="cat">3</column>
+            <column name="brand">1</column>
+            <column name="count">67</column>
+            <column name="description">Vitae asperiores vel</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">103</column>
+            <column name="name">Savannah Winters</column>
+            <column name="price">455</column>
+            <column name="cat">6</column>
+            <column name="brand">7</column>
+            <column name="count">38</column>
+            <column name="description">Porro amet voluptat</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">105</column>
+            <column name="name">Chaim Sparks</column>
+            <column name="price">535</column>
+            <column name="cat">5</column>
+            <column name="brand">5</column>
+            <column name="count">1</column>
+            <column name="description">Qui praesentium inci</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">106</column>
+            <column name="name">Lara Ward</column>
+            <column name="price">862</column>
+            <column name="cat">4</column>
+            <column name="brand">4</column>
+            <column name="count">4</column>
+            <column name="description">Facilis dicta neque </column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">107</column>
+            <column name="name">Griffith Sharpe</column>
+            <column name="price">74</column>
+            <column name="cat">3</column>
+            <column name="brand">6</column>
+            <column name="count">84</column>
+            <column name="description">Enim aliquip sit nat</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">108</column>
+            <column name="name">Rahim Maldonado</column>
+            <column name="price">767</column>
+            <column name="cat">2</column>
+            <column name="brand">8</column>
+            <column name="count">7</column>
+            <column name="description">Debitis odio dolores</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">109</column>
+            <column name="name">Gray Castaneda</column>
+            <column name="price">975</column>
+            <column name="cat">5</column>
+            <column name="brand">8</column>
+            <column name="count">95</column>
+            <column name="description">Dolore repellendus </column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">110</column>
+            <column name="name">Herman Acevedo</column>
+            <column name="price">607</column>
+            <column name="cat">4</column>
+            <column name="brand">5</column>
+            <column name="count">48</column>
+            <column name="description">Excepturi blanditiis</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">111</column>
+            <column name="name">Salvador Ayers</column>
+            <column name="price">576</column>
+            <column name="cat">1</column>
+            <column name="brand">6</column>
+            <column name="count">92</column>
+            <column name="description">Eum est sed ab sint </column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">112</column>
+            <column name="name">Ciaran Lott</column>
+            <column name="price">452</column>
+            <column name="cat">7</column>
+            <column name="brand">5</column>
+            <column name="count">78</column>
+            <column name="description">Elit mollit aliquam</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">114</column>
+            <column name="name">Alexander Joseph</column>
+            <column name="price">568</column>
+            <column name="cat">2</column>
+            <column name="brand">7</column>
+            <column name="count">79</column>
+            <column name="description">Accusamus incidunt </column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">115</column>
+            <column name="name">Karyn Chavez</column>
+            <column name="price">132</column>
+            <column name="cat">5</column>
+            <column name="brand">7</column>
+            <column name="count">32</column>
+            <column name="description">Reiciendis facere nu</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">117</column>
+            <column name="name">Olympia Phelps</column>
+            <column name="price">644</column>
+            <column name="cat">3</column>
+            <column name="brand">5</column>
+            <column name="count">57</column>
+            <column name="description">Laudantium excepteu</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">119</column>
+            <column name="name">Christian Mccoy</column>
+            <column name="price">439</column>
+            <column name="cat">3</column>
+            <column name="brand">4</column>
+            <column name="count">15</column>
+            <column name="description">Enim suscipit earum </column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">120</column>
+            <column name="name">Oleg Cherry</column>
+            <column name="price">675</column>
+            <column name="cat">5</column>
+            <column name="brand">7</column>
+            <column name="count">27</column>
+            <column name="description">Quam minim nostrum e</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">121</column>
+            <column name="name">Todd Garrison</column>
+            <column name="price">794</column>
+            <column name="cat">6</column>
+            <column name="brand">2</column>
+            <column name="count">68</column>
+            <column name="description">Alias sit natus dict</column>
+            <column name="views">0</column>
+        </table>
+        <table name="products">
+            <column name="id">122</column>
+            <column name="name">Francis Mcknight</column>
+            <column name="price">289</column>
+            <column name="cat">4</column>
+            <column name="brand">5</column>
+            <column name="count">41</column>
+            <column name="description">Ducimus omnis exped</column>
+            <column name="views">0</column>
+        </table>
+        <!-- الجدول users -->
+        <table name="users">
+            <column name="id">8</column>
+            <column name="name">hamada</column>
+            <column name="password">hhhhhhhh</column>
+            <column name="email">h@h.h</column>
+            <column name="gender">3</column>
+            <column name="permission">3</column>
+        </table>
+        <table name="users">
+            <column name="id">29</column>
+            <column name="name">abdo</column>
+            <column name="password">22222222</column>
+            <column name="email">a@a.a</column>
+            <column name="gender">3</column>
+            <column name="permission">1</column>
+        </table>
+        <table name="users">
+            <column name="id">91</column>
+            <column name="name">Sage Katelyn</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">jirukoqi@mailinator.com</column>
+            <column name="gender">3</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">92</column>
+            <column name="name">Dana Kasimir</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">tinido@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">93</column>
+            <column name="name">Elvis Dan</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">besapoq@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">94</column>
+            <column name="name">Xantha Kareem</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">nejygi@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">95</column>
+            <column name="name">Nash Madonna</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">vahytulu@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">96</column>
+            <column name="name">Hild India</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">gyme@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">97</column>
+            <column name="name">Kelly Chester</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">kyle@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">98</column>
+            <column name="name">Axel Deborah</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">bubadun@mailinator.com</column>
+            <column name="gender">3</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">99</column>
+            <column name="name">jufygadaxe</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">xyluxomo@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">100</column>
+            <column name="name">lanuhuca</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">vehumokoty@mailinator.com</column>
+            <column name="gender">3</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">101</column>
+            <column name="name">tegeqiqido</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">lyguniguv@mailinator.com</column>
+            <column name="gender">3</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">102</column>
+            <column name="name">tyzurykor</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">wewihape@mailinator.com</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">110</column>
+            <column name="name">ghjg</column>
+            <column name="password">fchgf</column>
+            <column name="email">fmgch@nhg.jycgf</column>
+            <column name="gender">4</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">123</column>
+            <column name="name">ahmed</column>
+            <column name="password">123213</column>
+            <column name="email">ahmed@mail.com</column>
+            <column name="gender">3</column>
+            <column name="permission">4</column>
+        </table>
+        <table name="users">
+            <column name="id">125</column>
+            <column name="name">Martina Xandr</column>
+            <column name="password">Pa$$w0rd!</column>
+            <column name="email">wonuvuly@mailinator.com</column>
+            <column name="gender">3</column>
+            <column name="permission">4</column>
+        </table>
+    </database>
+</pma_xml_export>

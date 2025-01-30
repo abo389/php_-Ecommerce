@@ -1,0 +1,168 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"ecommers"},
+{"type":"table","name":"brand","database":"ecommers","data":
+[
+{"id":"1","name":"apple"},
+{"id":"2","name":"Samsung"},
+{"id":"3","name":"dell"},
+{"id":"4","name":"LG"},
+{"id":"5","name":"zara"},
+{"id":"6","name":"ASUS"},
+{"id":"7","name":"honor"},
+{"id":"8","name":"NIKE"}
+]
+}
+,{"type":"table","name":"cart","database":"ecommers","data":
+[
+{"pro_id":"80","user_id":"96","quantity":"5"},
+{"pro_id":"84","user_id":"96","quantity":"1"},
+{"pro_id":"84","user_id":"98","quantity":"3"},
+{"pro_id":"93","user_id":"29","quantity":"4"},
+{"pro_id":"93","user_id":"98","quantity":"2"},
+{"pro_id":"93","user_id":"125","quantity":"4"},
+{"pro_id":"94","user_id":"29","quantity":"4"},
+{"pro_id":"94","user_id":"97","quantity":"2"},
+{"pro_id":"94","user_id":"98","quantity":"1"},
+{"pro_id":"95","user_id":"98","quantity":"8"},
+{"pro_id":"95","user_id":"125","quantity":"2"},
+{"pro_id":"105","user_id":"98","quantity":"6"},
+{"pro_id":"108","user_id":"96","quantity":"1"},
+{"pro_id":"120","user_id":"96","quantity":"1"}
+]
+}
+,{"type":"table","name":"category","database":"ecommers","data":
+[
+{"id":"1","name":"tv"},
+{"id":"2","name":"mobile"},
+{"id":"3","name":"t-shirt"},
+{"id":"4","name":"watch"},
+{"id":"5","name":"laptop"},
+{"id":"6","name":"pc"},
+{"id":"7","name":"ghmfghm"}
+]
+}
+,{"type":"table","name":"gender","database":"ecommers","data":
+[
+{"id":"3","name":"male"},
+{"id":"4","name":"female"}
+]
+}
+,{"type":"table","name":"images","database":"ecommers","data":
+[
+{"id":"63","pro_id":"80","name":"1730042523508.jpg"},
+{"id":"64","pro_id":"80","name":"1730042523643.jpg"},
+{"id":"66","pro_id":"80","name":"1730042523376.jpg"},
+{"id":"74","pro_id":"84","name":"1730208055893.jpg"},
+{"id":"83","pro_id":"93","name":"1730487384980.jpg"},
+{"id":"84","pro_id":"94","name":"173048739994.jpg"},
+{"id":"85","pro_id":"95","name":"1730487425236.jpg"},
+{"id":"86","pro_id":"96","name":"1730487439372.jpg"},
+{"id":"87","pro_id":"97","name":"1730487455242.jpeg"},
+{"id":"88","pro_id":"98","name":"1730779086386.webp"},
+{"id":"89","pro_id":"98","name":"1730779086453.jpg"},
+{"id":"90","pro_id":"98","name":"1730779086194.jpg"},
+{"id":"91","pro_id":"99","name":"1730779259310.jpg"},
+{"id":"92","pro_id":"100","name":"1730779364933.jpg"},
+{"id":"93","pro_id":"100","name":"173077936488.jpg"},
+{"id":"94","pro_id":"100","name":"1730779364622.jpg"},
+{"id":"95","pro_id":"101","name":"1730779449605.jpg"},
+{"id":"96","pro_id":"101","name":"1730779449103.jpg"},
+{"id":"101","pro_id":"103","name":"1730807824822.jpeg"},
+{"id":"103","pro_id":"105","name":"1730817838413.jpeg"},
+{"id":"104","pro_id":"105","name":"1730817838919.jpg"},
+{"id":"105","pro_id":"105","name":"173081783822.jpg"},
+{"id":"106","pro_id":"106","name":"1730817871808.jpg"},
+{"id":"107","pro_id":"107","name":"1730818094202.jpg"},
+{"id":"108","pro_id":"108","name":"1730818777811.jpg"},
+{"id":"109","pro_id":"109","name":"1730818875548.jpg"},
+{"id":"110","pro_id":"110","name":"1730818893822.jpg"},
+{"id":"111","pro_id":"110","name":"1730818893733.jpg"},
+{"id":"112","pro_id":"110","name":"1730818893435.jpeg"},
+{"id":"113","pro_id":"111","name":"1730819130672.jpg"},
+{"id":"114","pro_id":"111","name":"1730819130231.jpg"},
+{"id":"115","pro_id":"112","name":"1730819170988.jpeg"},
+{"id":"116","pro_id":"112","name":"1730819170564.jpg"},
+{"id":"117","pro_id":"112","name":"1730819170543.jpg"},
+{"id":"119","pro_id":"114","name":"1730832491513.jpg"},
+{"id":"120","pro_id":"115","name":"1730832912596.jpg"},
+{"id":"121","pro_id":"115","name":"1730832912734.jpg"},
+{"id":"122","pro_id":"115","name":"1730832912210.jpg"},
+{"id":"123","pro_id":"115","name":"1730832912397.jpg"},
+{"id":"128","pro_id":"117","name":"1730833031660.jpg"},
+{"id":"129","pro_id":"117","name":"1730833031207.jpg"},
+{"id":"130","pro_id":"117","name":"1730833031604.jpg"},
+{"id":"132","pro_id":"119","name":"1730833402378.webp"},
+{"id":"133","pro_id":"120","name":"1730911580368.jpeg"},
+{"id":"134","pro_id":"120","name":"1730911580951.jpg"},
+{"id":"135","pro_id":"120","name":"1730911580377.jpg"},
+{"id":"136","pro_id":"120","name":"1730911580431.jpg"},
+{"id":"137","pro_id":"121","name":"1730911600865.jpg"},
+{"id":"138","pro_id":"121","name":"1730911600281.jpg"},
+{"id":"139","pro_id":"121","name":"1730911600566.jpeg"},
+{"id":"140","pro_id":"122","name":"173091163086.jpeg"},
+{"id":"141","pro_id":"122","name":"1730911630935.jpg"},
+{"id":"142","pro_id":"122","name":"173091163057.jpg"}
+]
+}
+,{"type":"table","name":"permission","database":"ecommers","data":
+[
+{"id":"1","name":"owner"},
+{"id":"2","name":"admin"},
+{"id":"3","name":"operator"},
+{"id":"4","name":"user"}
+]
+}
+,{"type":"table","name":"products","database":"ecommers","data":
+[
+{"id":"80","name":"hamada","price":"98068","cat":"7","brand":"1","count":"65","description":"Buy online now at Pronk!","views":"0"},
+{"id":"84","name":"Ross Keith","price":"523","cat":"4","brand":"3","count":"18","description":"Cumque repudiandae v","views":"0"},
+{"id":"93","name":"Matthew Miles","price":"971","cat":"7","brand":"5","count":"62","description":"Mollitia qui et et i","views":"0"},
+{"id":"94","name":"Karly Massey","price":"796","cat":"3","brand":"7","count":"67","description":"Adipisicing qui volu","views":"0"},
+{"id":"95","name":"Rhoda Foley","price":"882","cat":"7","brand":"5","count":"63","description":"Fugit velit at cons","views":"0"},
+{"id":"96","name":"Kuame Murphy","price":"410","cat":"5","brand":"6","count":"80","description":"Quis quia eos ea con","views":"0"},
+{"id":"97","name":"Deacon Zimmerman","price":"686","cat":"3","brand":"3","count":"68","description":"Reprehenderit qui q","views":"0"},
+{"id":"98","name":"Veronica Morin","price":"251","cat":"7","brand":"6","count":"90","description":"Adipisci corrupti a","views":"0"},
+{"id":"99","name":"Bruno Carney","price":"490","cat":"3","brand":"5","count":"96","description":"Odio labore earum qu","views":"0"},
+{"id":"100","name":"Dennis Mccall","price":"548","cat":"1","brand":"5","count":"47","description":"Sint magni aute aute","views":"0"},
+{"id":"101","name":"Vladimir Chan","price":"436","cat":"3","brand":"1","count":"67","description":"Vitae asperiores vel","views":"0"},
+{"id":"103","name":"Savannah Winters","price":"455","cat":"6","brand":"7","count":"38","description":"Porro amet voluptat","views":"0"},
+{"id":"105","name":"Chaim Sparks","price":"535","cat":"5","brand":"5","count":"1","description":"Qui praesentium inci","views":"0"},
+{"id":"106","name":"Lara Ward","price":"862","cat":"4","brand":"4","count":"4","description":"Facilis dicta neque ","views":"0"},
+{"id":"107","name":"Griffith Sharpe","price":"74","cat":"3","brand":"6","count":"84","description":"Enim aliquip sit nat","views":"0"},
+{"id":"108","name":"Rahim Maldonado","price":"767","cat":"2","brand":"8","count":"7","description":"Debitis odio dolores","views":"0"},
+{"id":"109","name":"Gray Castaneda","price":"975","cat":"5","brand":"8","count":"95","description":"Dolore repellendus ","views":"0"},
+{"id":"110","name":"Herman Acevedo","price":"607","cat":"4","brand":"5","count":"48","description":"Excepturi blanditiis","views":"0"},
+{"id":"111","name":"Salvador Ayers","price":"576","cat":"1","brand":"6","count":"92","description":"Eum est sed ab sint ","views":"0"},
+{"id":"112","name":"Ciaran Lott","price":"452","cat":"7","brand":"5","count":"78","description":"Elit mollit aliquam","views":"0"},
+{"id":"114","name":"Alexander Joseph","price":"568","cat":"2","brand":"7","count":"79","description":"Accusamus incidunt ","views":"0"},
+{"id":"115","name":"Karyn Chavez","price":"132","cat":"5","brand":"7","count":"32","description":"Reiciendis facere nu","views":"0"},
+{"id":"117","name":"Olympia Phelps","price":"644","cat":"3","brand":"5","count":"57","description":"Laudantium excepteu","views":"0"},
+{"id":"119","name":"Christian Mccoy","price":"439","cat":"3","brand":"4","count":"15","description":"Enim suscipit earum ","views":"0"},
+{"id":"120","name":"Oleg Cherry","price":"675","cat":"5","brand":"7","count":"27","description":"Quam minim nostrum e","views":"0"},
+{"id":"121","name":"Todd Garrison","price":"794","cat":"6","brand":"2","count":"68","description":"Alias sit natus dict","views":"0"},
+{"id":"122","name":"Francis Mcknight","price":"289","cat":"4","brand":"5","count":"41","description":"Ducimus omnis exped","views":"0"}
+]
+}
+,{"type":"table","name":"users","database":"ecommers","data":
+[
+{"id":"8","name":"hamada","password":"hhhhhhhh","email":"h@h.h","gender":"3","permission":"3"},
+{"id":"29","name":"abdo","password":"22222222","email":"a@a.a","gender":"3","permission":"1"},
+{"id":"91","name":"Sage Katelyn","password":"Pa$$w0rd!","email":"jirukoqi@mailinator.com","gender":"3","permission":"4"},
+{"id":"92","name":"Dana Kasimir","password":"Pa$$w0rd!","email":"tinido@mailinator.com","gender":"4","permission":"4"},
+{"id":"93","name":"Elvis Dan","password":"Pa$$w0rd!","email":"besapoq@mailinator.com","gender":"4","permission":"4"},
+{"id":"94","name":"Xantha Kareem","password":"Pa$$w0rd!","email":"nejygi@mailinator.com","gender":"4","permission":"4"},
+{"id":"95","name":"Nash Madonna","password":"Pa$$w0rd!","email":"vahytulu@mailinator.com","gender":"4","permission":"4"},
+{"id":"96","name":"Hild India","password":"Pa$$w0rd!","email":"gyme@mailinator.com","gender":"4","permission":"4"},
+{"id":"97","name":"Kelly Chester","password":"Pa$$w0rd!","email":"kyle@mailinator.com","gender":"4","permission":"4"},
+{"id":"98","name":"Axel Deborah","password":"Pa$$w0rd!","email":"bubadun@mailinator.com","gender":"3","permission":"4"},
+{"id":"99","name":"jufygadaxe","password":"Pa$$w0rd!","email":"xyluxomo@mailinator.com","gender":"4","permission":"4"},
+{"id":"100","name":"lanuhuca","password":"Pa$$w0rd!","email":"vehumokoty@mailinator.com","gender":"3","permission":"4"},
+{"id":"101","name":"tegeqiqido","password":"Pa$$w0rd!","email":"lyguniguv@mailinator.com","gender":"3","permission":"4"},
+{"id":"102","name":"tyzurykor","password":"Pa$$w0rd!","email":"wewihape@mailinator.com","gender":"4","permission":"4"},
+{"id":"110","name":"ghjg","password":"fchgf","email":"fmgch@nhg.jycgf","gender":"4","permission":"4"},
+{"id":"123","name":"ahmed","password":"123213","email":"ahmed@mail.com","gender":"3","permission":"4"},
+{"id":"125","name":"Martina Xandr","password":"Pa$$w0rd!","email":"wonuvuly@mailinator.com","gender":"3","permission":"4"}
+]
+}
+]
